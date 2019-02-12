@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { ResearchRoutingModule } from './research-routing.module';
 import { IndexComponent } from './index/index.component';
-import { CounselingModule } from 'counseling';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [IndexComponent],
   imports: [
     CommonModule,
     ResearchRoutingModule,
-    CounselingModule
+    SharedModule
   ]
 })
 export class ResearchModule { }
