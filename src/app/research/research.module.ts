@@ -8,7 +8,7 @@ import { IndexComponent } from './index/index.component';
   declarations: [IndexComponent],
   imports: [
     CommonModule,
-    ResearchRoutingModule
+    ResearchRoutingModule,
   ]
 })
 export class ResearchModule { }
