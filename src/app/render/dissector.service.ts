@@ -4,7 +4,7 @@ import { SentenceDissector, TokenData } from './sentence-dissector';
 @Injectable({
   providedIn: 'root'
 })
-export class DissectorService {
+export class SentenceService {
 
   constructor() { }
 

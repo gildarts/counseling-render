@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DissectorService } from './dissector.service';
+import { SentenceService } from './dissector.service';
 
 @NgModule({
   declarations: [],
