@@ -6,6 +6,7 @@ import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../shared/shared.module';
 import { SentenceTestComponent } from './sentence-test/sentence-test.component';
 import { RenderModule } from '../render';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [IndexComponent, SentenceTestComponent],
@@ -13,7 +14,8 @@ import { RenderModule } from '../render';
     CommonModule,
     ResearchRoutingModule,
     SharedModule,
-    RenderModule
+    RenderModule,
+    FormsModule
   ]
 })
 export class ResearchModule { }

@@ -1,0 +1,22 @@
+
+input {
+  margin: 3px;
+  border-width: 0px;
+  border-bottom-width: 2px;
+}
+
+input:focus {
+  outline: none !important;
+}
+
+.flex_layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.align_center {
+  display: flex;
+  align-items: center;
+  margin: 3px;
+}

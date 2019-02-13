@@ -1,4 +1,17 @@
-<div>sentence: {{sentence}}</div>
-<div>martix: {{martix | json}}</div>
-<div>value: {{value}}</div>
-<div>tokens: <pre>{{data | json}}</pre></div>
+<div class="card mb-3" style="margin: 15px">
+  <div class="card-body">
+    <h5 class="card-title">Sentence Component Demo</h5>
+    <app-sentence [(martix)]="martix" [text]="sentence"></app-sentence>
+  </div>
+</div>
+
+<form>
+  <input name="sentence" type="text" [(ngModel)]="sentence" style="width: 100%">
+  <button type="button" (click)="martix=['', 'x雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']">Change</button>
+  <div>sentence: {{sentence}}</div>
+  <div>martix: {{martix | json}}</div>
+  <div>value: {{value}}</div>
+  <div>tokens:
+    <pre>{{data | json}}</pre>
+  </div>
+</form>
