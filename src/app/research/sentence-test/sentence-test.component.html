@@ -1,8 +1,9 @@
 <div class="card mb-3" style="margin: 15px">
   <div class="card-body">
     <h5 class="card-title">Sentence Component Demo</h5>
-    <app-sentence name="summary1" [(ngModel)]="martix" [text]="sentence" #my="ngModel"></app-sentence>
-    {{my.touched}}<button type="button" (click)="my.reset()">Reset</button>
+    <app-sentence required="true" name="summary1" [(ngModel)]="martix" [text]="sentence" #my="ngModel"></app-sentence>
+    touched: {{my.touched}}, valid: {{my.valid}}
+    <button type="button" (click)="my.reset()">Reset</button>
     <!-- <app-sentence name="summary2" [formControl]="martixControl" [text]="sentence"></app-sentence> -->
   </div>
 </div>

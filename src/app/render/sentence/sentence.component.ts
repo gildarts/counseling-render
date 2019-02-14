@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { SentenceService } from '../dissector.service';
 import { TokenData } from '../sentence-dissector';
 import { FormBuilder, FormArray, } from '@angular/forms';
@@ -25,6 +25,8 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   _tokenGroup = this.fb.group({inputs: new FormArray([])});
 
+  _required = false;
+
   constructor(
     private srv: SentenceService,
     private fb: FormBuilder
@@ -44,6 +46,11 @@ export class SentenceComponent implements OnInit, OnDestroy {
     }
 
     this._martix = val;
+
+  }
+
+  @Input() set required(value: boolean) {
+    this._required = value != null && value !== false && `${value}` !== 'false';
   }
 
   /**
@@ -55,6 +62,14 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   public setDisabledState(isDisabled: boolean) {
 
+  }
+
+  public validate() {
+    if (this._tokenGroup.valid) {
+      return null;
+    } else {
+      return { sentence: false };
+    }
   }
 
   touched() {
@@ -80,7 +95,8 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
     return {
       width: `${size * base}px`,
-      'border-bottom-color': data.required ? 'red' : 'unset'
+      // 在語法中暫不單獨支援 required 的設定。
+      // 'border-bottom-color': data.required ? 'red' : 'unset'
     };
   }
 
@@ -107,6 +123,16 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
       const controls = this._tokens.map(v => this.fb.group(v));
       this._tokenGroup.setControl("inputs", this.fb.array(controls));
+    } else {
+      this.resetValues();
+    }
+  }
+
+  private resetValues() {
+    const { inputs } = this._tokenGroup.controls;
+
+    for (const ctl of (inputs as FormArray).controls) {
+      ctl.patchValue({ value: '' });
     }
   }
 }

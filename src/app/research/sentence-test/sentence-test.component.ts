@@ -17,7 +17,7 @@ export class SentenceTestComponent implements OnInit {
   martixControl = new FormControl(this.martix);
 
   constructor(
-    private stnSrv: SentenceService
+    stnSrv: SentenceService
   ) {
     this.data = stnSrv.apply(this.sentence, this.martix);
 
