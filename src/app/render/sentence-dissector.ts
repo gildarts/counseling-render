@@ -1,6 +1,7 @@
 
 const KeywordPattern = '\%([r]?)(text+)([0-9]{1,2})?\%';
 
+// text 折解器。
 export class SentenceDissector {
 
   private _expressions: Expression[];

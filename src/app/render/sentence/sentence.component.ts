@@ -5,6 +5,18 @@ import { FormBuilder, FormArray, } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+/*
+example:
+<app-sentence
+  [disabled]="isDisabled" // 設定 input 的 disabled 狀態。
+  [required]="isRequired" // 設定 input 的 required 設定，如果為 true 則所有 input 都需要有值。
+  [(ngModel)]="martix"  // 相容 angular 內鍵的 ngModel 用法。
+  [text]="sentence"   // 設定 text pattern，例：「請輸入你的名字%TEXT2%」。
+  #sentence></app-sentence>
+
+  {{sentence.value}} // 使用 data binding 取得最終純文字，例：「請輸入你的名字聯邦銀行」。
+*/
+
 /**
  * 支援 Angular Form 的 ngModel、FormControl 功能。
  */
