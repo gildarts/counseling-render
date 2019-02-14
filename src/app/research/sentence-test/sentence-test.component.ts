@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SentenceService } from 'src/app/render';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-sentence-test',
@@ -13,6 +14,8 @@ export class SentenceTestComponent implements OnInit {
   value: string;
   data: any;
 
+  martixControl = new FormControl(this.martix);
+
   constructor(
     private stnSrv: SentenceService
   ) {
@@ -22,6 +25,10 @@ export class SentenceTestComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.martixControl.valueChanges.subscribe(v => {
+      this.martix = v;
+    });
   }
 
 }

@@ -8,6 +8,7 @@
 
     <!-- 如果是 Input 就產生一個 Input。 -->
     <input *ngIf="token.value.type === 'keyword'" type="text" formControlName="value"
+      (blur)="touched()"
       [ngStyle]="getStyle(token.value)"
       [required]="token.value.required">
   </div>

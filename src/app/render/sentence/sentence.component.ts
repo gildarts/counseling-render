@@ -1,18 +1,23 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, NgZone } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, forwardRef } from '@angular/core';
 import { SentenceService } from '../dissector.service';
 import { TokenData } from '../sentence-dissector';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { FormBuilder, FormArray, } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+/**
+ * 支援 ngModel、FormControl 基本功能，但不支援 Valid、Touched 之類狀態處理。
+ */
 @Component({
   selector: 'app-sentence',
   templateUrl: './sentence.component.html',
-  styleUrls: ['./sentence.component.css']
+  styleUrls: ['./sentence.component.css'],
+  // providers: [SENTENCE_VALUE_ACCESSOR]
 })
 export class SentenceComponent implements OnInit, OnDestroy {
 
-  _bag = new Subject<void>(); // release resource usage.
+  // 用於 component destroy 時 release 資源。
+  _bag = new Subject<void>();
 
   _text: string;
   _martix: string[];
@@ -22,8 +27,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   constructor(
     private srv: SentenceService,
-    private fb: FormBuilder,
-    private zone: NgZone
+    private fb: FormBuilder
   ) { }
 
   @Input() set text(val: string) {
@@ -42,8 +46,24 @@ export class SentenceComponent implements OnInit, OnDestroy {
     this._martix = val;
   }
 
+  /**
+   * martix 變更時。
+   */
   @Output() martixChange = new EventEmitter<string[]>();
 
+  @Output() martixTouched = new EventEmitter<void>();
+
+  public setDisabledState(isDisabled: boolean) {
+
+  }
+
+  touched() {
+    this.martixTouched.emit();
+  }
+
+  /**
+   * 取得 martix 裡面每一元素所代表的相關資訊。
+   */
   getTokenControls() {
     const arr = this._tokenGroup.get("inputs") as FormArray;
     return arr.controls;
@@ -66,7 +86,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._tokenGroup.valueChanges
-    .pipe(takeUntil(this._bag))
+    .pipe(takeUntil(this._bag)) // 元件 destroy 時 release 資源。
     .subscribe( v => {
       const { inputs }: { inputs: TokenData[] } = v;
       this._martix = inputs.map(t => t.value);
@@ -75,6 +95,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // 產生一個值使得相關 Subscritpion 解除。
     this._bag.next();
     this._bag.complete();
   }

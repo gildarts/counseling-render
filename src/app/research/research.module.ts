@@ -6,7 +6,7 @@ import { IndexComponent } from './index/index.component';
 import { SharedModule } from '../shared/shared.module';
 import { SentenceTestComponent } from './sentence-test/sentence-test.component';
 import { RenderModule } from '../render';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [IndexComponent, SentenceTestComponent],
@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     ResearchRoutingModule,
     SharedModule,
     RenderModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ResearchModule { }
