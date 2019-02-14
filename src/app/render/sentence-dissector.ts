@@ -43,7 +43,7 @@ export class SentenceDissector {
 
     const reg = new RegExp(KeywordPattern, 'gmi');
     const sentence = this.text;
-    const parts: LiterallyExpression[] = [];
+    const parts: Expression[] = [];
 
     let part: RegExpExecArray = null;
     let previousLast = 0;
