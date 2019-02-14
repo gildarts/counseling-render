@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { SentenceService } from '../dissector.service';
 import { TokenData } from '../sentence-dissector';
 import { FormBuilder, FormArray, } from '@angular/forms';
@@ -6,51 +6,48 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 /**
- * 支援 ngModel、FormControl 基本功能，但不支援 Valid、Touched 之類狀態處理。
+ * 支援 Angular Form 的 ngModel、FormControl 功能。
  */
 @Component({
   selector: 'app-sentence',
   templateUrl: './sentence.component.html',
-  styleUrls: ['./sentence.component.css'],
-  // providers: [SENTENCE_VALUE_ACCESSOR]
+  styleUrls: ['./sentence.component.css']
 })
 export class SentenceComponent implements OnInit, OnDestroy {
 
   // 用於 component destroy 時 release 資源。
   _bag = new Subject<void>();
 
-  _text: string;
-  _martix: string[];
-  _tokens: TokenData[];
+  _text: string; // 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
+  _martix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
 
   _tokenGroup = this.fb.group({inputs: new FormArray([])});
 
-  _required = false;
+  _required = false; // 是否所有欄位都是必填狀態。
+  _disabled = false; // 是否停用所有 input。
 
   constructor(
-    private srv: SentenceService,
-    private fb: FormBuilder
+    private srv: SentenceService, // 用於解析 text 用的服務。
+    private fb: FormBuilder // angular 動態表單機制。
   ) { }
 
   @Input() set text(val: string) {
     if (this._text !== val) {
-      setTimeout(() => this.apply(val, this._martix));
+      // 需要 setTimeout 是因為 angular 內部機制衝突，目前這是暫解。
+      setTimeout(() => this.apply(val, this._martix)); // 重新產生畫面。
     }
 
     this._text = val;
   }
 
+  // 這個屬性也有可能透過 value accessor directive 寫入。
   @Input() set martix(val: string[]) {
     if ((this._martix || []).join() !== (val || []).join() ) {
-      setTimeout(() => this.apply(this._text, val));
+      // 需要 setTimeout 是因為 angular 內部機制衝突，目前這是暫解。
+      setTimeout(() => this.apply(this._text, val)); // 重新產生畫面。
     }
 
     this._martix = val;
-
-  }
-
-  @Input() set required(value: boolean) {
-    this._required = value != null && value !== false && `${value}` !== 'false';
   }
 
   /**
@@ -58,33 +55,43 @@ export class SentenceComponent implements OnInit, OnDestroy {
    */
   @Output() martixChange = new EventEmitter<string[]>();
 
-  @Output() martixTouched = new EventEmitter<void>();
+  // 用於任何 input 被 touch 引發，通知外部程式已被 touch。
+  _martixTouched = new EventEmitter<void>();
 
-  public setDisabledState(isDisabled: boolean) {
-
+  /**
+   * 取得最後產出的文字。
+   */
+  public get value() {
+    const val = this._tokenGroup.value.inputs as TokenData[];
+    return this.srv.join(val);
   }
 
-  public validate() {
-    if (this._tokenGroup.valid) {
-      return null;
-    } else {
-      return { sentence: false };
-    }
+  public _setRequired(required: boolean) {
+    // 內部所有產生出來的 input 都會 binding 這個屬性。
+    this._required = required;
   }
 
-  touched() {
-    this.martixTouched.emit();
+  // 用於 value accessor directive 呼叫，啟用或停用所有 input。
+  public _setDisabledState(isDisabled: boolean) {
+    this._disabled = isDisabled;
+    this.setDisabled(this._disabled);
+  }
+
+  // input blur 事件呼叫，引發事件通知 value accessor directive 此 control 已被 touch。
+  _touched() {
+    this._martixTouched.emit();
   }
 
   /**
    * 取得 martix 裡面每一元素所代表的相關資訊。
    */
-  getTokenControls() {
+  _getTokenControls() {
     const arr = this._tokenGroup.get("inputs") as FormArray;
     return arr.controls;
   }
 
-  getStyle(data: TokenData) {
+  // 產生畫面時取得相應的樣式(寬度)。
+  _getStyle(data: TokenData) {
 
     const base = 100;
     let size = 1;
@@ -119,12 +126,26 @@ export class SentenceComponent implements OnInit, OnDestroy {
   private apply(text: string, martix: string[]) {
 
     if (!!text && !!martix) {
-      this._tokens = this.srv.apply(text, martix);
+      const tokens = this.srv.apply(text, martix);
+      const controls = tokens.map(v => this.fb.group(v));
 
-      const controls = this._tokens.map(v => this.fb.group(v));
       this._tokenGroup.setControl("inputs", this.fb.array(controls));
     } else {
       this.resetValues();
+    }
+
+    this.setDisabled(this._disabled);
+  }
+
+  private setDisabled(disabled: boolean) {
+    for (const ctl of this._getTokenControls()) {
+
+      if (disabled) {
+        ctl.disable();
+      } else {
+        ctl.enable();
+      }
+
     }
   }
 

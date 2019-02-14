@@ -72,17 +72,18 @@ export class SentenceDissector {
   }
 }
 
+// 代表一個 token，例如：%TEXT3% 解析後的結果。
 export interface TokenData {
 
   type: TokenType;
 
-  text: string;
+  text: string; // keyword 字串。
 
-  value: string;
+  value: string; // 使用者輸入的值。
 
-  size: number;
+  size: number; // 寬度。
 
-  required: boolean;
+  required: boolean; // 是否必填，目前無用。
 }
 
 export class Expression {

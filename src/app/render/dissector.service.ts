@@ -20,6 +20,6 @@ export class SentenceService {
 
   public join(tokens: TokenData[]) {
     const words = tokens.map(v => v.type === 'literally' ? v.text : v.value);
-    return words.join(' ');
+    return words.join('');
   }
 }

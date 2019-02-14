@@ -1,14 +1,22 @@
 <div class="card mb-3" style="margin: 15px">
   <div class="card-body">
     <h5 class="card-title">Sentence Component Demo</h5>
-    <app-sentence required="true" name="summary1" [(ngModel)]="martix" [text]="sentence" #my="ngModel"></app-sentence>
-    touched: {{my.touched}}, valid: {{my.valid}}
-    <button type="button" (click)="my.reset()">Reset</button>
+
+    <app-sentence [disabled]="isDisabled" [required]="isRequired" name="summary1" [(ngModel)]="martix" [text]="sentence" #my="ngModel" #st></app-sentence>
+
+    <div style="display:flex;align-items: center;">
+        <div class="item">touched: {{my.touched}}</div>
+        <div class="item">valid: {{my.valid}}</div>
+        <button type="button" (click)="my.reset()" class="item">Reset</button>
+        <button type="button" (click)="isDisabled = !isDisabled" class="item">Switch Disabled</button>
+        <button type="button" (click)="isRequired = !isRequired" class="item">Switch Required</button>
+    </div>
+    <div class="item">valid: {{st.value}}</div>
     <!-- <app-sentence name="summary2" [formControl]="martixControl" [text]="sentence"></app-sentence> -->
   </div>
 </div>
 
-<form>
+<form >
   <input name="sentence" type="text" [(ngModel)]="sentence" style="width: 100%">
   <button type="button" (click)="martix=['', 'x雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']">Change</button>
   <div>sentence: {{sentence}}</div>

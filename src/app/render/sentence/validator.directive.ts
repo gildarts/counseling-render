@@ -21,23 +21,26 @@ export class SentenceValidatorDirective implements Validator {
     private component: SentenceComponent
   ) { }
 
-  @Input() set required(value: boolean | string) {
-    if (this._onChange) {
-      this._onChange();
-    }
-  }
+  // 是否為必填(只要是必填所有欄位都要必填)。
+  @Input() set required(value: boolean) {
 
-  @Input() set text(val: string) {
+    const req = value != null && value !== false && `${value}` !== 'false';
+    this.component._setRequired(req);
+
     if (this._onChange) {
       this._onChange();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return this.component.validate();
-  }
+    if (this.component._tokenGroup.valid) {
+      return null;
+    } else {
+      return { sentence: false };
+    }  }
 
   registerOnValidatorChange?(fn: () => void): void {
     this._onChange = fn;
   }
+
 }

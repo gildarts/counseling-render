@@ -16,6 +16,9 @@ export class SentenceTestComponent implements OnInit {
 
   martixControl = new FormControl(this.martix);
 
+  isDisabled = false;
+  isRequired = false;
+
   constructor(
     stnSrv: SentenceService
   ) {

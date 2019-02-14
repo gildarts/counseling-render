@@ -1,16 +1,18 @@
 <form [formGroup]="_tokenGroup" class="flex_layout">
 
-<ng-container *ngFor="let token of getTokenControls(); let i=index">
-  <div [formGroup]="token" class="align_center">
+  <ng-container *ngFor="let token of _getTokenControls(); let i=index">
 
-    <!-- 如果是常值的就直接顯示。 -->
-    <div *ngIf="token.value.type === 'literally'">{{token.value.text}}</div>
+    <div [formGroup]="token" class="align_center">
 
-    <!-- 如果是 Input 就產生一個 Input。 -->
-    <input *ngIf="token.value.type === 'keyword'" type="text" formControlName="value"
-      (blur)="touched()"
-      [ngStyle]="getStyle(token.value)"
-      [required]="_required">
-  </div>
-</ng-container>
+      <!-- 如果是常值就直接顯示。 -->
+      <div *ngIf="token.value.type === 'literally'">{{token.value.text}}</div>
+
+      <!-- 如果是 Keyword 就產生一個 Input。 -->
+      <input *ngIf="token.value.type === 'keyword'" type="text"
+        formControlName="value" (blur)="_touched()"
+        [ngStyle]="_getStyle(token.value)" [required]="_required">
+    </div>
+
+  </ng-container>
+
 </form>

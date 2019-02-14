@@ -33,7 +33,7 @@ export class SentenceValueAccessorDirective implements OnInit, OnDestroy, Contro
       this._onChange(v);
     });
 
-    this.component.martixTouched
+    this.component._martixTouched
     .pipe(takeUntil(this._bag))
     .subscribe(v => {
       this._onTouched();
@@ -58,6 +58,6 @@ export class SentenceValueAccessorDirective implements OnInit, OnDestroy, Contro
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.component.setDisabledState(isDisabled);
+    this.component._setDisabledState(isDisabled);
   }
 }
