@@ -1,29 +1,29 @@
 
-export interface QuestionSubject {
+export interface QSubject {
   Subject: string;
-  QuestionGroup: QuestionGroup[];
+  QuestionGroup: QGroup[];
 }
 
-export interface QuestionGroup {
+export interface QGroup {
   Group: string;
-  QuestionQuery: QuestionQuery[];
+  QuestionQuery: QQuery[];
 }
 
-export interface QuestionQuery {
+export interface QQuery {
   Query: string;
-  QuestionText: QuestionText[];
+  QuestionText: QQuestion[];
 }
 
-export interface QuestionText {
+export interface QQuestion {
   QuestionCode: string;
   Type: string;
   Require: boolean;
   RequireLink: string;
   Text: string;
-  Options: Option[];
+  Options: QOption[];
 }
 
-export interface Option {
+export interface QOption {
   AnswerID: number;
   OptionCode: string;
   OptionText: string;
