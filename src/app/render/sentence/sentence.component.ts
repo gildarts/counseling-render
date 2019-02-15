@@ -78,6 +78,18 @@ export class SentenceComponent implements OnInit, OnDestroy {
     return this.srv.join(val);
   }
 
+  public get completed() {
+    const tokens = this._tokenGroup.value.inputs as TokenData[];
+
+    for (const token of tokens) {
+      if (token.type === 'keyword' && !!!token.value) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   public _setRequired(required: boolean) {
     // 內部所有產生出來的 input 都會 binding 這個屬性。
     this._required = required;

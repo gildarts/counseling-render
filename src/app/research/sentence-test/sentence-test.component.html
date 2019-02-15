@@ -12,13 +12,14 @@
         <button type="button" (click)="isRequired = !isRequired" class="item">Switch Required</button>
     </div>
     <div class="item">valid: {{st.value}}</div>
+    <div class="item">completed: {{st.completed}}</div>
     <!-- <app-sentence name="summary2" [formControl]="martixControl" [text]="sentence"></app-sentence> -->
   </div>
 </div>
 
 <form >
   <input name="sentence" type="text" [(ngModel)]="sentence" style="width: 100%">
-  <button type="button" (click)="martix=['', 'x雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']">Change</button>
+  <button type="button" (click)="martix=['', '雪莉、安潔莉娜', '', '露娜', '', '', '', '安潔莉娜']">Change</button>
   <div>sentence: {{sentence}}</div>
   <div>martix: {{martix | json}}</div>
   <div>value: {{value}}</div>
