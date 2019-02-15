@@ -4,11 +4,13 @@ import { SentenceComponent } from './sentence/sentence.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SentenceValueAccessorDirective } from './sentence/value-accessor.directive';
 import { SentenceValidatorDirective } from './sentence/validator.directive';
+import { QueryFormComponent } from './query-form/query-form.component';
 
 @NgModule({
   declarations: [SentenceComponent,
     SentenceValueAccessorDirective,
-    SentenceValidatorDirective],
+    SentenceValidatorDirective,
+    QueryFormComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule
@@ -16,7 +18,8 @@ import { SentenceValidatorDirective } from './sentence/validator.directive';
   exports: [
     SentenceComponent,
     SentenceValueAccessorDirective,
-    SentenceValidatorDirective
+    SentenceValidatorDirective,
+    QueryFormComponent
   ]
 })
 export class RenderModule { }
