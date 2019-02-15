@@ -78,6 +78,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
     return this.srv.join(val);
   }
 
+  /** 判斷是否填寫完整，若%RTEXT%項目留空=false */
   public get completed() {
     const tokens = this._tokenGroup.value.inputs as TokenData[];
 
