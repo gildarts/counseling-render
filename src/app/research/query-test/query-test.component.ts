@@ -400,7 +400,7 @@ const demo4 = [
       },
       {
         "AnswerID": 28,
-        "OptionCode": "10000029",
+        "OptionCode": "10000029-1",
         "OptionText": "夢戰陣營：%TEXT2%，等級：%TEXT%，綜合戰力：%TEXT%",
         "AnswerValue": "",
         "AnswerMatrix": ["", "公主聯盟", "", "60", "", "56000"],

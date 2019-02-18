@@ -17,9 +17,9 @@ import { QueryFormComponent } from './query-form/query-form.component';
   ],
   exports: [
     SentenceComponent,
+    QueryFormComponent,
     SentenceValueAccessorDirective,
     SentenceValidatorDirective,
-    QueryFormComponent
   ]
 })
 export class RenderModule { }

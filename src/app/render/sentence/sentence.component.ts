@@ -33,7 +33,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
   _text: string; // 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
   _martix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
 
-  _tokenGroup = this.fb.group({ inputs: new FormArray([]) });
+  _tokenGroup = this.fb.group({});
 
   _required = false; // 是否所有欄位都是必填狀態。
   _disabled = false; // 是否停用所有 input。
@@ -112,7 +112,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
    */
   _getTokenControls() {
     const arr = this._tokenGroup.get("inputs") as FormArray;
-    return arr.controls;
+    return (arr || { controls: [] }).controls;
   }
 
   // 產生畫面時取得相應的樣式(寬度)。
@@ -175,7 +175,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
   private resetValues() {
     const { inputs } = this._tokenGroup.controls;
 
-    for (const ctl of (inputs as FormArray).controls) {
+    for (const ctl of ((inputs || { controls: [] }) as FormArray).controls) {
       ctl.patchValue({ value: '' });
     }
   }

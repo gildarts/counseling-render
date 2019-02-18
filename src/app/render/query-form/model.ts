@@ -1,4 +1,5 @@
 
+/** QueryFormComponent 內部使用。 */
 export interface Question {
   QuestionCode: string;
   Type: '單選' | '複選' | '填答';
@@ -14,6 +15,7 @@ export interface Question {
   Options: Option[];
 }
 
+/** QueryFormComponent 內部使用。 */
 export interface Option {
   AnswerID: number;
   OptionCode: string;
