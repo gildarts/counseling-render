@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QueryTestComponent implements OnInit {
 
-  data = demo;
+  data1 = demo1;
+
+  data2 = demo2;
+
+  data3 = demo3;
+
+  data4 = demo4;
 
   constructor() { }
 
@@ -15,7 +21,37 @@ export class QueryTestComponent implements OnInit {
   }
 }
 
-const demo = [
+const demo1 = [
+  {
+    "QuestionCode": "Q10000003",
+    "Type": "單選",
+    "Require": true,
+    "RequireLink": "",
+    "Text": "",
+    "Options": [
+      {
+        "AnswerID": 3,
+        "OptionCode": "10000004",
+        "OptionText": "台灣地區，縣市：%TEXT2%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 2,
+        "OptionCode": "10000003",
+        "OptionText": "其他：%TEXT2%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  }
+];
+
+const demo2 = [
   {
     "QuestionCode": "Q10000017",
     "Type": "單選",
@@ -110,6 +146,264 @@ const demo = [
         "OptionText": "%TEXT3%",
         "AnswerValue": "",
         "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  }
+];
+
+const demo3 = [
+  {
+    "QuestionCode": "Q10000026",
+    "Type": "單選",
+    "Require": true,
+    "RequireLink": "",
+    "Text": "原住民血統",
+    "Options": [
+      {
+        "AnswerID": 56,
+        "OptionCode": "10000057",
+        "OptionText": "否",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 57,
+        "OptionCode": "10000058",
+        "OptionText": "是",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  },
+  {
+    "QuestionCode": "Q10000027",
+    "Type": "複選",
+    "Require": true,
+    "RequireLink": "",
+    "Text": "原住民親屬稱謂",
+    "Options": [
+      {
+        "AnswerID": 58,
+        "OptionCode": "10000059",
+        "OptionText": "父",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 59,
+        "OptionCode": "10000060",
+        "OptionText": "母",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  },
+  {
+    "QuestionCode": "Q10000028",
+    "Type": "填答",
+    "Require": true,
+    "RequireLink": "",
+    "Text": "原住民族別",
+    "Options": [
+      {
+        "AnswerID": 60,
+        "OptionCode": "10000061",
+        "OptionText": "%TEXT2%",
+        "AnswerValue": "",
+        "AnswerMatrix": ["神人"],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  }
+]
+
+const demo4 = [
+  {
+    "QuestionCode": "Q10000011",
+    "Type": "複選",
+    "Require": true,
+    "RequireLink": "",
+    "Text": "",
+    "Options": [
+      {
+        "AnswerID": 12,
+        "OptionCode": "10000013",
+        "OptionText": "邊疆生（蒙疆生）",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 13,
+        "OptionCode": "10000014",
+        "OptionText": "大陸來台依親者",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 14,
+        "OptionCode": "10000015",
+        "OptionText": "多胞胎",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 15,
+        "OptionCode": "10000016",
+        "OptionText": "港澳生",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 16,
+        "OptionCode": "10000017",
+        "OptionText": "功勳子女",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 17,
+        "OptionCode": "10000018",
+        "OptionText": "海外僑生（回國僑生）國籍：%TEXT2%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 18,
+        "OptionCode": "10000019",
+        "OptionText": "教職員子女",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 19,
+        "OptionCode": "10000020",
+        "OptionText": "境外優季科學技術人才子女",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 20,
+        "OptionCode": "10000021",
+        "OptionText": "派外人員子女",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 21,
+        "OptionCode": "10000022",
+        "OptionText": "清寒證明",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 22,
+        "OptionCode": "10000023",
+        "OptionText": "退伍軍人子女",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 23,
+        "OptionCode": "10000024",
+        "OptionText": "外籍生",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 24,
+        "OptionCode": "10000025",
+        "OptionText": "現役軍人子女",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 25,
+        "OptionCode": "10000026",
+        "OptionText": "新住民子女（家長其中一方為外籍者）",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 26,
+        "OptionCode": "10000027",
+        "OptionText": "顏面傷殘",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 27,
+        "OptionCode": "10000028",
+        "OptionText": "一般生",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 28,
+        "OptionCode": "10000029",
+        "OptionText": "原住民，族別：%TEXT2%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 29,
+        "OptionCode": "10000030",
+        "OptionText": "資優生",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      },
+      {
+        "AnswerID": 28,
+        "OptionCode": "10000029",
+        "OptionText": "夢戰陣營：%TEXT2%，等級：%TEXT%，綜合戰力：%TEXT%",
+        "AnswerValue": "",
+        "AnswerMatrix": ["", "公主聯盟", "", "60", "", "56000"],
         "AnswerChecked": false,
         "AnswerComplete": false
       }

@@ -1,0 +1,11 @@
+
+.question {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* border-width: 1px; */
+  /* border-style: solid; */
+  border-color: yellowgreen;
+  margin: 2px;
+  padding: 2px;
+}

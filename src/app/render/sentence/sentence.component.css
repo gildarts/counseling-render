@@ -1,6 +1,6 @@
 
 input {
-  margin: 3px;
+  /* margin: 3px; */
   border-width: 0px;
   border-bottom-width: 2px;
 }
@@ -18,5 +18,5 @@ input:focus {
 .align_center {
   display: flex;
   align-items: center;
-  margin: 3px;
+  /* margin: 3px; */
 }

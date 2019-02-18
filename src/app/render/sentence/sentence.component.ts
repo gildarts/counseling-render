@@ -33,7 +33,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
   _text: string; // 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
   _martix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
 
-  _tokenGroup = this.fb.group({inputs: new FormArray([])});
+  _tokenGroup = this.fb.group({ inputs: new FormArray([]) });
 
   _required = false; // 是否所有欄位都是必填狀態。
   _disabled = false; // 是否停用所有 input。
@@ -54,7 +54,7 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   // 這個屬性也有可能透過 value accessor directive 寫入。
   @Input() set martix(val: string[]) {
-    if ((this._martix || []).join() !== (val || []).join() ) {
+    if ((this._martix || []).join() !== (val || []).join()) {
       // 需要 setTimeout 是因為 angular 內部機制衝突，目前這是暫解。
       setTimeout(() => this.apply(this._text, val)); // 重新產生畫面。
     }
@@ -134,12 +134,12 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._tokenGroup.valueChanges
-    .pipe(takeUntil(this._bag)) // 元件 destroy 時 release 資源。
-    .subscribe( v => {
-      const { inputs }: { inputs: TokenData[] } = v;
-      this._martix = inputs.map(t => t.value);
-      this.martixChange.emit(this._martix);
-    });
+      .pipe(takeUntil(this._bag)) // 元件 destroy 時 release 資源。
+      .subscribe(v => {
+        const { inputs }: { inputs: TokenData[] } = v;
+        this._martix = inputs.map(t => t.value);
+        this.martixChange.emit(this._martix);
+      });
   }
 
   ngOnDestroy() {
@@ -164,13 +164,11 @@ export class SentenceComponent implements OnInit, OnDestroy {
 
   private setDisabled(disabled: boolean) {
     for (const ctl of this._getTokenControls()) {
-
       if (disabled) {
         ctl.disable();
       } else {
         ctl.enable();
       }
-
     }
   }
 

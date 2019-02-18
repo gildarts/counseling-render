@@ -8,9 +8,11 @@
       <div *ngIf="token.value.type === 'literally'">{{token.value.text}}</div>
 
       <!-- 如果是 Keyword 就產生一個 Input。 -->
-      <input *ngIf="token.value.type === 'keyword'" type="text"
+      <input *ngIf="token.value.type === 'keyword'"
+        type="text"
         formControlName="value" (blur)="_touched()"
         [ngStyle]="_getStyle(token.value)" [required]="_required">
+
     </div>
 
   </ng-container>

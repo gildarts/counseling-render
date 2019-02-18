@@ -1,3 +1,35 @@
-<p>
-  query-form works!
-</p>
+<div *ngFor="let question of data" class="question">
+  <div class="mb-3 mr-2" *ngIf="question.Text">{{question.Text}}</div>
+  <ng-container *ngFor="let option of question.Options">
+
+    <!-- radio -->
+    <ng-container *ngIf="question.Type === '單選'">
+      <div class="custom-control custom-radio custom-control-inline mb-3">
+        <input type="radio" id="customRadioInline2" name="customRadioInline1"
+          class="custom-control-input">
+        <label class="custom-control-label" for="customRadioInline2">
+          <app-sentence [text]="c_option(option).OptionText"
+            [martix]="c_option(option).AnswerMatrix"></app-sentence>
+        </label>
+      </div>
+    </ng-container>
+
+    <!-- checkbox -->
+    <ng-container *ngIf="question.Type === '複選'">
+      <div class="custom-control custom-checkbox custom-control-inline mb-3 ">
+        <input type="checkbox" class="custom-control-input" id="customCheck1">
+        <label class="custom-control-label" for="customCheck1">
+          <app-sentence [text]="c_option(option).OptionText"
+            [martix]="c_option(option).AnswerMatrix"></app-sentence>
+        </label>
+      </div>
+    </ng-container>
+
+    <!-- text input -->
+    <ng-container *ngIf="question.Type === '填答'">
+      <app-sentence [text]="c_option(option).OptionText"
+        [martix]="c_option(option).AnswerMatrix"></app-sentence>
+    </ng-container>
+
+  </ng-container>
+</div>

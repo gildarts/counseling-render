@@ -2,3 +2,7 @@
 
 /* CDK Overlay Style */
 @import '~@angular/cdk/overlay-prebuilt.css';
+
+.custom-control {
+  padding-left: 2rem !important;
+}
