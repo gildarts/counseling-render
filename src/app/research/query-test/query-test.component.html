@@ -1,36 +1,40 @@
+<div class="card">
+  <div class="card-body">
+    <button class="btn btn-primary m-1" type="button"
+            (click)="toggleDisabled()">Toggle Disable</button>
+    <button class="btn btn-primary m-1" type="button"
+            (click)="toggleDebug()">Toggle Debug</button>
+    <button class="btn btn-primary m-1" type="button"
+            (click)="resetValues()">Reset Values</button>
+  </div>
+</div>
+
 <div class="card mb-3" style="margin: 15px">
   <div class="card-body">
     <div class="row">
       <div class="col-sm-2 font-weight-bold">出生地</div>
-      <div app-query-form [formControl]="data1Control" [debug]="false"
-        class="col-sm-10 query"></div>
+      <div app-query-form [formControl]="dataControl[0]" [debug]="_debug"
+           class="col-sm-10 query"></div>
     </div>
   </div>
 </div>
-<button class="btn btn-primary" type="button"
-  (click)="data1Control.enabled? data1Control.disable(): data1Control.enable()">Switch
-  Disable</button>
-<pre>{{data1Control.value | json}}</pre>
 
-<!-- <div class="card mb-3" style="margin: 15px">
+<div class="card mb-3" style="margin: 15px">
   <div class="card-body">
     <div class="row">
       <div class="col-sm-2 font-weight-bold">原住民</div>
-      <div app-query-form [dataSource]="data3" class="col-sm-10 query" #query="appQueryForm"
-        [debug]="false"></div>
+      <div app-query-form [formControl]="dataControl[1]" class="col-sm-10 query"
+           #query="appQueryForm" [debug]="_debug"></div>
     </div>
   </div>
 </div>
-<button class="btn btn-primary" type="button" (click)="query.setDisabledState(true)">True Disable</button>
-<button class="btn btn-primary" type="button" (click)="query.setDisabledState(false)">False Disable</button>
-<pre>{{data3 | json}}</pre> -->
 
-<!--
 <div class="card mb-3" style="margin: 15px">
   <div class="card-body">
     <div class="row">
       <div class="col-sm-2 font-weight-bold">學生身分</div>
-      <div app-query-form [dataSource]="data4" class="col-sm-10 query"></div>
+      <div app-query-form [formControl]="dataControl[2]" class="col-sm-10 query"
+           [debug]="_debug"></div>
     </div>
   </div>
 </div>
@@ -39,8 +43,9 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-2 font-weight-bold">學生身心障礙</div>
-      <div app-query-form [dataSource]="data2" class="col-sm-10 query" [debug]="true">
+      <div app-query-form [formControl]="dataControl[3]" class="col-sm-10 query"
+           [debug]="_debug">
       </div>
     </div>
   </div>
-</div> -->
+</div>

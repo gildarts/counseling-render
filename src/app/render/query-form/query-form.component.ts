@@ -26,7 +26,7 @@ export class QueryFormComponent implements OnInit, OnDestroy {
   @Input() set dataSource(val: Question[]) {
 
     this._data = val;
-    const questionArray = val.map(quest => {
+    const questionArray = this._data.map(quest => {
 
       const optionArray = quest.Options.map(opt => {
         return this.fb.group({
@@ -56,8 +56,10 @@ export class QueryFormComponent implements OnInit, OnDestroy {
     this._questionGroup.valueChanges.pipe(
       takeUntil(this._bag)
     ).subscribe( v => {
-      this._data = v;
-      this.dataChange.emit(this._data);
+      if (!this._questionGroup.disabled) {
+        this._data = v;
+        this.dataChange.emit(this._data);
+      }
     });
   }
 
@@ -74,6 +76,10 @@ export class QueryFormComponent implements OnInit, OnDestroy {
   protected getOptionsControl(q: FormGroup) {
     const ctl = q.get("Options") as FormArray;
     return (ctl || { controls: [] }).controls;
+  }
+
+  protected get _disabled() {
+    return this._questionGroup.disabled;
   }
 
   // 這裡只是為了在 html 中有 intellscense.

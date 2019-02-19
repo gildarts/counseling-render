@@ -16,11 +16,38 @@ export class QueryTestComponent implements OnInit {
 
   data4 = demo4;
 
-  data1Control = new FormControl(this.data1);
+  dataControl = [
+    new FormControl(this.data1),
+    new FormControl(this.data2),
+    new FormControl(this.data3),
+    new FormControl(this.data4)
+  ];
+
+  protected _disabled = false;
+
+  protected _debug = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleDisabled() {
+    if (this._disabled) {
+      this.dataControl.forEach(v => v.enable());
+    } else {
+      this.dataControl.forEach(v => v.disable());
+    }
+
+    this._disabled = !this._disabled;
+  }
+
+  toggleDebug() {
+    this._debug = !this._debug;
+  }
+
+  resetValues() {
+    this.dataControl.forEach(v => v.reset());
   }
 }
 
