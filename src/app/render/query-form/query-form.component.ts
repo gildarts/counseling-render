@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Question, Option } from './model';
 import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,7 +10,9 @@ import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
   templateUrl: './query-form.component.html',
   styleUrls: ['./query-form.component.css']
 })
-export class QueryFormComponent implements OnInit {
+export class QueryFormComponent implements OnInit, OnDestroy {
+
+  private _bag = new Subject<void>();
 
   protected _questionGroup = this.fb.group({});
 
@@ -36,15 +40,23 @@ export class QueryFormComponent implements OnInit {
     });
 
     this._questionGroup.setControl("questions", new FormArray(questionArray));
+
   }
 
-  @Input() displayJson: boolean;
+  @Input() debug: boolean;
 
   ngOnInit() {
     this._data = this._questionGroup.value;
-    this._questionGroup.valueChanges.subscribe( v => {
+    this._questionGroup.valueChanges.pipe(
+      takeUntil(this._bag)
+    ).subscribe( v => {
       this._data = v;
     });
+  }
+
+  ngOnDestroy(): void {
+    this._bag.next();
+    this._bag.complete();
   }
 
   protected getQuestionsControl() {

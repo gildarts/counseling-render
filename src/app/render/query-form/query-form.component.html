@@ -3,21 +3,21 @@
 
     <div *ngFor="let question of getQuestionsControl()" class="question">
       <div class="mb-3 mr-2" *ngIf="question.value.Text">{{question.value.Text}}</div>
-      <ng-container [formGroup]="question">
+
+      <ng-container [formGroup]="question" appRadioGroup>
         <ng-container formArrayName="Options">
+
           <div *ngFor="let option of getOptionsControl(question)">
+
             <!-- radio -->
             <ng-container *ngIf="question.value.Type === '單選'" [formGroup]="option">
-              <div
-                class="custom-control custom-radio custom-control-inline mb-3">
-                <input type="radio" [attr.id]="c_option(option).OptionCode"
-                  value="true"
-                  [attr.name]="c_question(question).QuestionCode"
-                  formControlName="AnswerChecked" class="custom-control-input">
+              <div class="custom-control custom-radio custom-control-inline mb-3">
+                <input type="radio" [attr.id]="c_option(option).OptionCode" value="true"
+                  [attr.name]="c_question(question).QuestionCode" appRadio="AnswerChecked"
+                  class="custom-control-input">
                 <label class="custom-control-label"
                   [attr.for]="c_option(option).OptionCode">
-                  <app-sentence
-                    [text]="c_option(option).OptionText"
+                  <app-sentence [text]="c_option(option).OptionText"
                     formControlName="AnswerMatrix"></app-sentence>
                 </label>
               </div>
@@ -47,7 +47,7 @@
                 formControlName="AnswerMatrix"></app-sentence>
             </ng-container>
 
-            <pre *ngIf="displayJson">{{option.value | json}}</pre>
+            <pre *ngIf="debug">{{option.value | json}}</pre>
           </div>
         </ng-container>
       </ng-container>

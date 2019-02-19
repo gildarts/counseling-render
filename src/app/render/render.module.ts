@@ -5,12 +5,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SentenceValueAccessorDirective } from './sentence/value-accessor.directive';
 import { SentenceValidatorDirective } from './sentence/validator.directive';
 import { QueryFormComponent } from './query-form/query-form.component';
+import { RadioGroupDirective } from './query-form/radio-group.directive';
+import { RadioDirective } from './query-form/radio.directive';
 
 @NgModule({
   declarations: [SentenceComponent,
     SentenceValueAccessorDirective,
     SentenceValidatorDirective,
-    QueryFormComponent],
+    QueryFormComponent,
+    RadioGroupDirective,
+    RadioDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule

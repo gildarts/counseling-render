@@ -37,7 +37,8 @@ export class SentenceValidatorDirective implements Validator {
       return null;
     } else {
       return { sentence: false };
-    }  }
+    }
+  }
 
   registerOnValidatorChange?(fn: () => void): void {
     this._onChange = fn;
