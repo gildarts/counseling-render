@@ -2,7 +2,7 @@ import { Directive, OnInit, HostListener, Optional, Input, OnDestroy, ElementRef
 import { ControlContainer, FormArray } from '@angular/forms';
 import { RadioGroupDirective } from './radio-group.directive';
 import { Subject } from 'rxjs';
-// import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: 'input[appRadio]'
@@ -14,7 +14,7 @@ export class RadioDirective implements OnInit, OnDestroy {
   constructor(
     private radio: ControlContainer, // 只能用在 FormGroup、FormArray。
     private group: RadioGroupDirective,
-    // private elm: ElementRef<HTMLInputElement>
+    private elm: ElementRef<HTMLInputElement>
   ) { }
 
   @Input() appRadio: string;
@@ -37,12 +37,15 @@ export class RadioDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.radio.statusChanges.pipe(
-    //   takeUntil(this._bag)
-    // ).
-    // subscribe(v => {
-    //   this.elm.nativeElement.disabled = v;
-    // });
+    this.radio.control.valueChanges.pipe(
+      takeUntil(this._bag)
+    )
+    .subscribe( v => {
+      if (!this.radio.disabled) {
+        const val = v[this.appRadio];
+        this.elm.nativeElement.checked = val;
+      }
+    });
   }
 
   ngOnDestroy(): void {
