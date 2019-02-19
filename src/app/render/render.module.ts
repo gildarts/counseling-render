@@ -7,23 +7,27 @@ import { SentenceValidatorDirective } from './sentence/validator.directive';
 import { QueryFormComponent } from './query-form/query-form.component';
 import { RadioGroupDirective } from './query-form/radio-group.directive';
 import { RadioDirective } from './query-form/radio.directive';
+import { QueryFormValueAccessorDirective } from './query-form/value-accessor.directive';
 
 @NgModule({
-  declarations: [SentenceComponent,
+  declarations: [
+    SentenceComponent,
     SentenceValueAccessorDirective,
     SentenceValidatorDirective,
     QueryFormComponent,
     RadioGroupDirective,
-    RadioDirective],
+    RadioDirective,
+    QueryFormValueAccessorDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule
   ],
   exports: [
     SentenceComponent,
-    QueryFormComponent,
     SentenceValueAccessorDirective,
     SentenceValidatorDirective,
+    QueryFormComponent,
+    QueryFormValueAccessorDirective,
   ]
 })
 export class RenderModule { }

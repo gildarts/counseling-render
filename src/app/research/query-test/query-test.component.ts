@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-query-test',
@@ -14,6 +15,8 @@ export class QueryTestComponent implements OnInit {
   data3 = demo3;
 
   data4 = demo4;
+
+  data1Control = new FormControl(this.data1);
 
   constructor() { }
 
@@ -226,7 +229,7 @@ const demo3 = [
       }
     ]
   }
-]
+];
 
 const demo4 = [
   {

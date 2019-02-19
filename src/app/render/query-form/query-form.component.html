@@ -8,9 +8,14 @@
         <ng-container formArrayName="Options">
 
           <div *ngFor="let option of getOptionsControl(question)">
+              <ng-container [formGroup]="option">
+                  <app-sentence
+                    [text]="c_option(option).OptionText"
+                    formControlName="AnswerMatrix"></app-sentence>
+              </ng-container>
 
             <!-- radio -->
-            <ng-container *ngIf="question.value.Type === '單選'" [formGroup]="option">
+            <!-- <ng-container *ngIf="question.value.Type === '單選'" [formGroup]="option">
               <div class="custom-control custom-radio custom-control-inline mb-3">
                 <input type="radio" [attr.id]="c_option(option).OptionCode" value="true"
                   [attr.name]="c_question(question).QuestionCode" appRadio="AnswerChecked"
@@ -21,10 +26,10 @@
                     formControlName="AnswerMatrix"></app-sentence>
                 </label>
               </div>
-            </ng-container>
+            </ng-container> -->
 
             <!-- checkbox -->
-            <ng-container *ngIf="question.value.Type === '複選'" [formGroup]="option">
+            <!-- <ng-container *ngIf="question.value.Type === '複選'" [formGroup]="option">
               <div
                 class="custom-control custom-checkbox custom-control-inline mb-3 ">
                 <input type="checkbox" class="custom-control-input"
@@ -38,14 +43,14 @@
                     formControlName="AnswerMatrix"></app-sentence>
                 </label>
               </div>
-            </ng-container>
+            </ng-container> -->
 
             <!-- text input -->
-            <ng-container *ngIf="question.value.Type === '填答'" [formGroup]="option">
+            <!-- <ng-container *ngIf="question.value.Type === '填答'" [formGroup]="option">
               <app-sentence
                 [text]="c_option(option).OptionText"
                 formControlName="AnswerMatrix"></app-sentence>
-            </ng-container>
+            </ng-container> -->
 
             <pre *ngIf="debug">{{option.value | json}}</pre>
           </div>
