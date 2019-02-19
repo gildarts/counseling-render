@@ -1,8 +1,10 @@
-<form [formGroup]="_questionGroup">
+<form [formGroup]="_questionGroup" class="question_container">
   <ng-container formArrayName="questions">
 
-    <div *ngFor="let question of getQuestionsControl()" class="question">
-      <div class="mb-3 mr-2" *ngIf="question.value.Text">{{question.value.Text}}</div>
+    <div *ngFor="let question of getQuestionsControl()"
+         class="question" [ngClass]="{'question_debug': debug}">
+      <div class="mb-3 mr-2" *ngIf="question.value.Text">{{question.value.Text}}
+      </div>
 
       <ng-container [formGroup]="question" appRadioGroup>
         <ng-container formArrayName="Options">
@@ -12,49 +14,51 @@
 
               <!-- radio -->
               <ng-container *ngIf="question.value.Type === '單選'"
-                [formGroup]="option">
+                            [formGroup]="option">
                 <div
-                  class="custom-control custom-radio custom-control-inline mb-3">
+                     class="custom-control custom-radio custom-control-inline mb-3">
                   <input type="radio" [attr.id]="c_option(option).OptionCode"
-                    value="true" [attr.name]="c_question(question).QuestionCode"
-                    appRadio="AnswerChecked" class="custom-control-input"
-                    [disabled]="_disabled"
-                    >
+                         value="true"
+                         [attr.name]="c_question(question).QuestionCode"
+                         appRadio="AnswerChecked" class="custom-control-input"
+                         [disabled]="_disabled">
                   <label class="custom-control-label"
-                    [attr.for]="c_option(option).OptionCode">
+                         [attr.for]="c_option(option).OptionCode">
                     <app-sentence [text]="c_option(option).OptionText"
-                      formControlName="AnswerMatrix"></app-sentence>
+                                  formControlName="AnswerMatrix"></app-sentence>
                   </label>
                 </div>
               </ng-container>
 
               <!-- checkbox -->
               <ng-container *ngIf="question.value.Type === '複選'"
-                [formGroup]="option">
+                            [formGroup]="option">
                 <div
-                  class="custom-control custom-checkbox custom-control-inline mb-3 ">
+                     class="custom-control custom-checkbox custom-control-inline mb-3 ">
                   <input type="checkbox" class="custom-control-input"
-                    [attr.id]="c_option(option).OptionCode"
-                    formControlName="AnswerChecked">
+                         [attr.id]="c_option(option).OptionCode"
+                         formControlName="AnswerChecked">
                   <label class="custom-control-label"
-                    [attr.for]="c_option(option).OptionCode">
+                         [attr.for]="c_option(option).OptionCode">
                     <app-sentence [text]="c_option(option).OptionText"
-                      formControlName="AnswerMatrix"></app-sentence>
+                                  formControlName="AnswerMatrix"></app-sentence>
                   </label>
                 </div>
               </ng-container>
 
               <!-- text input -->
               <ng-container *ngIf="question.value.Type === '填答'"
-                [formGroup]="option">
+                            [formGroup]="option">
                 <app-sentence [text]="c_option(option).OptionText"
-                  formControlName="AnswerMatrix"></app-sentence>
+                              formControlName="AnswerMatrix"></app-sentence>
               </ng-container>
 
-              <pre *ngIf="debug">{{option.value | json}}</pre>
+              <pre *ngIf="debug"
+                   class="debug_info">{{option.value | json}}</pre>
             </ng-container>
 
           </div>
+
         </ng-container>
       </ng-container>
     </div>
