@@ -138,9 +138,12 @@ export class SentenceComponent implements OnInit, OnDestroy {
     this._tokenGroup.valueChanges
       .pipe(takeUntil(this._bag)) // 元件 destroy 時 release 資源。
       .subscribe(v => {
-        const { inputs }: { inputs: TokenData[] } = v;
-        this._martix = inputs.map(t => t.value);
-        this.martixChange.emit(this._martix);
+        // 變更 disable 狀態時，會引發此事件，我不確定是 bug 還是本來就這樣，但會造成怪怪現像。
+        if (!this._tokenGroup.disabled) {
+          const { inputs }: { inputs: TokenData[] } = v;
+          this._martix = inputs.map(t => t.value);
+          this.martixChange.emit(this._martix);
+        }
       });
   }
 

@@ -3,7 +3,7 @@ import { ControlContainer, FormGroup } from '@angular/forms';
 
 /** 負責取得 Question FormGroup */
 @Directive({
-  selector: '[formGroup][appRadioGroup]'
+  selector: '[formGroup][appRadioGroup],[formGroupName][appRadioGroup]'
 })
 export class RadioGroupDirective {
 

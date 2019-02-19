@@ -30,7 +30,10 @@ export class SentenceValueAccessorDirective implements OnInit, OnDestroy, Contro
     this.component.martixChange
     .pipe(takeUntil(this._bag))
     .subscribe(v => {
-      this._onChange(v);
+      // 變更 disable 狀態時，會引發此事件，我不確定是 bug 還是本來就這樣，但會造成怪怪現像。
+      if (!this.component._disabled) {
+        this._onChange(v);
+      }
     });
 
     this.component._martixTouched
