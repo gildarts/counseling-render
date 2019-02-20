@@ -56,7 +56,7 @@ const demo1 = [
     "QuestionCode": "Q10000003",
     "Type": "單選",
     "Require": true,
-    "RequireLink": "",
+    "RequireLink": "10000038",
     "Text": "",
     "Options": [
       {
@@ -241,7 +241,7 @@ const demo3 = [
   {
     "QuestionCode": "Q10000028",
     "Type": "填答",
-    "Require": true,
+    "Require": false,
     "RequireLink": "",
     "Text": "原住民族別",
     "Options": [

@@ -3,8 +3,15 @@
 
     <div *ngFor="let question of getQuestionsControl()"
          class="question" [ngClass]="{'question_debug': debug}">
-      <div class="mb-3 mr-2" *ngIf="question.value.Text">{{question.value.Text}}
-      </div>
+
+         <div *ngIf="debug" class="debug_info">
+           <div>require:{{question.value.Require}}</div>
+           <div>require link:{{question.value.RequireLink}}</div>
+           <div>valid status: {{question.valid}}</div>
+           <div>disabled status: {{question.disabled}}</div>
+         </div>
+
+      <div class="mb-3 mr-2" *ngIf="question.value.Text">{{question.value.Text}}</div>
 
       <ng-container [formGroup]="question" appRadioGroup>
         <ng-container formArrayName="Options">

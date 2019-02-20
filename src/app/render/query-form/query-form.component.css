@@ -12,6 +12,11 @@
   padding: 2px;
 }
 
+/* .require {
+  border-style: solid;
+  border-color: red;
+} */
+
 .question_debug {
   border-style: solid;
   border-color: yellowgreen;
