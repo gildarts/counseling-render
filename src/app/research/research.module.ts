@@ -8,9 +8,15 @@ import { SentenceTestComponent } from './sentence-test/sentence-test.component';
 import { RenderModule } from '../render';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QueryTestComponent } from './query-test/query-test.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 
 @NgModule({
-  declarations: [IndexComponent, SentenceTestComponent, QueryTestComponent],
+  declarations: [
+    IndexComponent,
+    SentenceTestComponent,
+    QueryTestComponent,
+    ReactiveFormComponent
+  ],
   imports: [
     CommonModule,
     ResearchRoutingModule,
