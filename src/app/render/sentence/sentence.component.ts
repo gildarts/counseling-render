@@ -44,7 +44,6 @@ export class SentenceComponent implements OnInit, OnDestroy {
   ) { }
 
   @Input() set text(val: string) {
-    console.log(`text: ${val}`);
     if (this._text !== val) {
       // 需要 setTimeout 是因為 angular 內部機制衝突，目前這是暫解。
       setTimeout(() => this.apply(val, this._martix)); // 重新產生畫面。

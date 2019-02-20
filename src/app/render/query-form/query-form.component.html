@@ -31,8 +31,9 @@
                          [disabled]="_disabled">
                   <label class="custom-control-label"
                          [attr.for]="c_option(option).OptionCode">
-                    <app-sentence [text]="c_option(option).OptionText"
-                                  formControlName="AnswerMatrix"></app-sentence>
+                         {{c_option(option).OptionText}}
+                    <!-- <app-sentence [text]="c_option(option).OptionText"
+                                  formControlName="AnswerMatrix"></app-sentence> -->
                   </label>
                 </div>
               </ng-container>
@@ -47,8 +48,9 @@
                          formControlName="AnswerChecked">
                   <label class="custom-control-label"
                          [attr.for]="c_option(option).OptionCode">
-                    <app-sentence [text]="c_option(option).OptionText"
-                                  formControlName="AnswerMatrix"></app-sentence>
+                         {{c_option(option).OptionText}}
+                    <!-- <app-sentence [text]="c_option(option).OptionText"
+                                  formControlName="AnswerMatrix"></app-sentence> -->
                   </label>
                 </div>
               </ng-container>
@@ -56,8 +58,9 @@
               <!-- text input -->
               <ng-container *ngIf="question.value.Type === '填答'"
                             [formGroup]="option">
-                <app-sentence [text]="c_option(option).OptionText"
-                              formControlName="AnswerMatrix"></app-sentence>
+                            {{c_option(option).OptionText}}
+                <!-- <app-sentence [text]="c_option(option).OptionText"
+                              formControlName="AnswerMatrix"></app-sentence> -->
               </ng-container>
 
               <pre *ngIf="debug"

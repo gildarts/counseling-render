@@ -57,7 +57,8 @@ export class QueryFormComponent implements OnInit, OnDestroy {
       takeUntil(this._bag)
     ).subscribe( v => {
       if (!this._questionGroup.disabled) {
-        this._data = v;
+        // 傳入的是陣列，但是 reactive form 機制關系，新增了 questions。
+        this._data = v.questions;
         this.dataChange.emit(this._data);
       }
     });
