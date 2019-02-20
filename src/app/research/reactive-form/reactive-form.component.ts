@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-form',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReactiveFormComponent implements OnInit {
 
-  constructor() { }
+  protected name = new FormControl('zoe');
+
+  protected _disabled = false;
+  protected _required = false;
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
+  }
+
+  toggleDisabled() {
+
+    if (this._disabled) {
+      this.name.enable();
+    } else {
+      this.name.disable();
+    }
+
+    this._disabled = !this._disabled;
   }
 
 }

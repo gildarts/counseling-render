@@ -1,3 +1,12 @@
-<p>
-  reactive-form works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <button type="button" (click)="toggleDisabled()" class="btn btn-promiary m-1">Toggle Disabled</button>
+    <button type="button" (click)="_required = !_required" class="btn btn-promiary m-1">Toggle Required</button>
+
+    <input type="text" [formControl]="name" class="m-1" [required]="_required">
+    <div class="m-1">{{name.value ? name.value : '[no value]'}}</div>
+    <div class="m-1">require conf: {{_required}}</div>
+    <div class="m-1">disabled status: {{name.disabled}}</div>
+    <div class="m-1">valid status: {{name.valid}}</div>
+  </div>
+</div>
