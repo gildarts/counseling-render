@@ -106,13 +106,13 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * 取得 martix 裡面每一元素所代表的相關資訊。
    */
-  protected _getTokenControls() {
+  _getTokenControls() {
     const arr = this._tokenGroup.get("inputs") as FormArray;
     return (arr || { controls: [] }).controls;
   }
 
   // 產生畫面時取得相應的樣式(寬度)。
-  protected _getStyle(data: TokenData) {
+  _getStyle(data: TokenData) {
 
     const base = 100;
     let size = 1;

@@ -8,11 +8,11 @@ import { FormControl, FormBuilder } from '@angular/forms';
 })
 export class ReactiveFormComponent implements OnInit {
 
-  protected name = new FormControl('zoe');
+  name = new FormControl('zoe');
 
-  protected _disabled = false;
-  protected _required = false;
-  protected _show = true;
+  _disabled = false;
+  _required = false;
+  _show = true;
 
   constructor(
     private fb: FormBuilder

@@ -28,11 +28,11 @@ export class QueryTestComponent implements OnInit {
 
   fulldataGroup: FormControl[] = [];
 
-  protected _disabled = false;
+  _disabled = false;
 
-  protected _debug = false;
+  _debug = false;
 
-  protected _show_all = false;
+  _show_all = false;
 
   constructor() { }
 

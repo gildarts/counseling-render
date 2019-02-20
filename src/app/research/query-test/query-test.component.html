@@ -10,11 +10,15 @@
     <button class="btn btn-primary m-1" type="button"
             (click)="resetValues()">Reset Values</button>
     <ul>
-      <li>資料量大的效率問題。</li>
-      <li>Show / Hide 時為什麼會引發 ValueChange 問題。</li>
-      <li>必填機制 Required</li>
-      <li>必填問題(Require、RequireLink)</li>
       <li>Rest Values</li>
+      <li>輸入文字框時，要自動選擇 Radio、Checkbox。</li>
+      <li>必填機制 Required</li>
+      <li>如果有 check 該 martix 都需要有值。</li>
+      <li>必填問題(Require、RequireLink)</li>
+      <li>TextArea 處理</li>
+      <li>text 中的常值需要填入 martix 陣列裡。</li>
+      <li class="clean">資料量大的效率問題(Production Mode 會改善)。</li>
+      <li class="clean">Show / Hide 時為什麼會引發 ValueChange 問題(本來就這樣)。</li>
     </ul>
   </div>
 </div>
@@ -74,7 +78,7 @@
         <div class="col-sm-2 font-weight-bold">自動產生</div>
         <div app-query-form [formControl]="query" class="col-sm-10 query"
              [debug]="_debug">
-        </div>
+            </div>
       </div>
     </div>
   </div>

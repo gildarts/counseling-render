@@ -15,9 +15,9 @@ export class QueryFormComponent implements OnInit, OnDestroy {
 
   private _bag = new Subject<void>();
 
-  protected _questionGroup = this.fb.group({"questions": new FormArray([])});
+  _questionGroup = this.fb.group({"questions": new FormArray([])});
 
-  protected _data: Question[];
+  _data: Question[];
 
   constructor(
     private fb: FormBuilder
@@ -69,26 +69,26 @@ export class QueryFormComponent implements OnInit, OnDestroy {
     this._bag.complete();
   }
 
-  protected getQuestionsControl() {
+  getQuestionsControl() {
     const ctl = this._questionGroup.get("questions") as FormArray;
     return (ctl || {controls: []}).controls as FormGroup[];
   }
 
-  protected getOptionsControl(q: FormGroup) {
+  getOptionsControl(q: FormGroup) {
     const ctl = q.get("Options") as FormArray;
     return (ctl || { controls: [] }).controls;
   }
 
-  protected get _disabled() {
+  get _disabled() {
     return this._questionGroup.disabled;
   }
 
   // 這裡只是為了在 html 中有 intellscense.
-  protected c_option(o: FormGroup): Option {
+  c_option(o: FormGroup): Option {
     return o.value;
   }
 
-  protected c_question(q: FormGroup): Question {
+  c_question(q: FormGroup): Question {
     return q.value;
   }
 
