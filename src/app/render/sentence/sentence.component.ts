@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { SentenceService } from '../dissector.service';
-import { TokenData } from '../sentence-dissector';
-import { FormBuilder, FormArray, } from '@angular/forms';
+import { TokenData, SentenceDissector } from '../sentence-dissector';
+import { FormBuilder, FormArray, Validators, } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { isEqual } from 'lodash';
 
 /*
 example:
@@ -25,51 +26,36 @@ example:
   templateUrl: './sentence.component.html',
   styleUrls: ['./sentence.component.css']
 })
-export class SentenceComponent implements OnInit, OnDestroy {
+export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
 
   // 用於 component destroy 時 release 資源。
-  _bag = new Subject<void>();
-
-  _text: string; // 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
-  _martix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
+  private _bag = new Subject<void>();
 
   _tokenGroup = this.fb.group({inputs: new FormArray([])});
-
   _required = false; // 是否所有欄位都是必填狀態。
-  _disabled = false; // 是否停用所有 input。
+
+  // private _text: string; // 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
+  // private _martix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
+
+  public _disabled = false; // 是否停用所有 input。
+  private _dissector: SentenceDissector;
+  private _ui_dirty = false; // 代表畫面需要更新。
+  // private _tokens: TokenData[] = [];
 
   constructor(
     private srv: SentenceService, // 用於解析 text 用的服務。
     private fb: FormBuilder // angular 動態表單機制。
   ) { }
 
-  @Input() set text(val: string) {
-    if (this._text !== val) {
-      // 需要 setTimeout 是因為 angular 內部機制衝突，目前這是暫解。
-      setTimeout(() => this.apply(val, this._martix)); // 重新產生畫面。
-    }
-
-    this._text = val;
-  }
+  @Input() text: string;
 
   // 這個屬性也有可能透過 value accessor directive 寫入。
-  @Input() set martix(val: string[]) {
-    console.log(`martix: ${JSON.stringify(val)}`);
-    if ((this._martix || []).join() !== (val || []).join()) {
-      // 需要 setTimeout 是因為 angular 內部機制衝突，目前這是暫解。
-      setTimeout(() => this.apply(this._text, val)); // 重新產生畫面。
-    }
-
-    this._martix = val;
-  }
+  @Input() martix: string[];
 
   /**
    * martix 變更時。
    */
   @Output() martixChange = new EventEmitter<string[]>();
-
-  // 用於任何 input 被 touch 引發，通知外部程式已被 touch。
-  _martixTouched = new EventEmitter<void>();
 
   /**
    * 取得最後產出的文字。
@@ -92,15 +78,24 @@ export class SentenceComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  public _setRequired(required: boolean) {
+  // 用於任何 input 被 touch 引發，通知外部程式已被 touch。
+  _martixTouched = new EventEmitter<void>();
+
+  public applyRequireConf(required: boolean) {
     // 內部所有產生出來的 input 都會 binding 這個屬性。
     this._required = required;
+    this.setUIDirty();
+    this.applyChanges();
   }
 
   // 用於 value accessor directive 呼叫，啟用或停用所有 input。
   public _setDisabledState(isDisabled: boolean) {
     this._disabled = isDisabled;
     this.setDisabled(this._disabled);
+  }
+
+  public setUIDirty() {
+    this._ui_dirty = true;
   }
 
   // input blur 事件呼叫，引發事件通知 value accessor directive 此 control 已被 touch。
@@ -111,13 +106,13 @@ export class SentenceComponent implements OnInit, OnDestroy {
   /**
    * 取得 martix 裡面每一元素所代表的相關資訊。
    */
-  _getTokenControls() {
+  protected _getTokenControls() {
     const arr = this._tokenGroup.get("inputs") as FormArray;
     return (arr || { controls: [] }).controls;
   }
 
   // 產生畫面時取得相應的樣式(寬度)。
-  _getStyle(data: TokenData) {
+  protected _getStyle(data: TokenData) {
 
     const base = 100;
     let size = 1;
@@ -134,53 +129,95 @@ export class SentenceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this._tokenGroup.valueChanges
       .pipe(takeUntil(this._bag)) // 元件 destroy 時 release 資源。
       .subscribe(v => {
         // 變更 disable 狀態時，會引發此事件，我不確定是 bug 還是本來就這樣，但會造成怪怪現像。
         if (!this._tokenGroup.disabled) {
           const { inputs }: { inputs: TokenData[] } = v;
-          this._martix = inputs.map(t => t.value);
-          this.martixChange.emit(this._martix);
+          const newMartix = inputs.map(t => t.value);
+
+          if (!isEqual(this.martix, newMartix)) {
+            this.martix = newMartix;
+            this.martixChange.emit(this.martix);
+          }
+
         }
       });
   }
 
-  ngOnDestroy() {
-    // 產生一個值使得相關 Subscritpion 解除。
-    this._bag.next();
-    this._bag.complete();
-  }
+  ngOnChanges(changes: SimpleChanges): void {
 
-  private apply(text: string, martix: string[]) {
+    if (changes.text) {
+      const { previousValue, currentValue } = changes.text;
 
-    if (!!text && !!martix) {
-      const tokens = this.srv.apply(text, martix);
-      const controls = tokens.map(v => this.fb.group(v));
-
-      this._tokenGroup.setControl("inputs", this.fb.array(controls));
-    } else {
-      this.resetValues();
+      if (previousValue !== currentValue) {
+        if (!currentValue) {
+          this._dissector = null;
+        } else {
+          this._dissector = this.srv.create(currentValue);
+        }
+        this.setUIDirty();
+      }
     }
 
-    this.setDisabled(this._disabled);
+    if (changes.martix) {
+      const { previousValue, currentValue } = changes.martix;
+
+      if (!isEqual(previousValue, currentValue)) {
+        if (!currentValue) {
+          this.resetValues();
+        } else {
+          this.setUIDirty();
+        }
+      }
+    }
+
+    this.applyChanges();
+  }
+
+  applyChanges() {
+
+    if (this._ui_dirty && this._dissector && this.martix) {
+      const tokens = this._dissector.applyMartix(this.martix);
+      const controls = tokens.map(v => {
+        if (v.type === "keyword" && this._required) {
+          const g = { ...v, value: [v.value, Validators.required] };
+          return this.fb.group(g);
+        } else {
+          return this.fb.group(v);
+        }
+      });
+
+      this._tokenGroup.setControl("inputs", this.fb.array(controls));
+
+      this.setDisabled(this._disabled);
+      this._ui_dirty = false;
+    }
+
   }
 
   private setDisabled(disabled: boolean) {
-    for (const ctl of this._getTokenControls()) {
-      if (disabled) {
-        ctl.disable();
+
+    if (disabled) {
+        this._tokenGroup.disable();
       } else {
-        ctl.enable();
+        this._tokenGroup.enable();
       }
-    }
   }
 
-  private resetValues() {
+  public resetValues() {
     const { inputs } = this._tokenGroup.controls;
 
     for (const ctl of ((inputs || { controls: [] }) as FormArray).controls) {
       ctl.patchValue({ value: '' });
     }
+  }
+
+  ngOnDestroy() {
+    // 產生一個值使相關 Subscritpion 解除。
+    this._bag.next();
+    this._bag.complete();
   }
 }

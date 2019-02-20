@@ -18,6 +18,11 @@ export class SentenceService {
     return interpreter.applyMartix(martix);
   }
 
+  /** 建立解析器。 */
+  public create(sentence: string) {
+    return new SentenceDissector(sentence);
+  }
+
   public join(tokens: TokenData[]) {
     const words = tokens.map(v => v.type === 'literally' ? v.text : v.value);
     return words.join('');

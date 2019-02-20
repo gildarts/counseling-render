@@ -6,14 +6,17 @@
     <app-sentence [disabled]="isDisabled" [required]="isRequired" name="summary1" [(ngModel)]="martix" [text]="sentence" #my="ngModel" #st></app-sentence>
 
     <div style="display:flex;align-items: center;">
-        <div class="item">touched: {{my.touched}}</div>
-        <div class="item">valid: {{my.valid}}</div>
-        <button type="button" (click)="my.reset()" class="item">Reset</button>
-        <button type="button" (click)="isDisabled = !isDisabled" class="item">Switch Disabled</button>
-        <button type="button" (click)="isRequired = !isRequired" class="item">Switch Required</button>
+        <button type="button" (click)="my.reset()" class="item btn btn-primary">Reset</button>
+        <button type="button" (click)="isDisabled = !isDisabled" class="item btn btn-primary">Switch Disabled</button>
+        <button type="button" (click)="isRequired = !isRequired" class="item btn btn-primary">Switch Required</button>
     </div>
-    <div class="item">valid: {{st.value}}</div>
-    <div class="item">completed: {{st.completed}}</div>
+    <div class="item">ngModel touched: {{my.touched}}</div>
+    <div class="item">ngModel valid: {{my.valid}}</div>
+    <pre>ngModel errors: {{my.errors | json}}</pre>
+
+    <div class="item">require conf: {{isRequired}}</div>
+    <div class="item">text value: {{st.value}}</div>
+    <div class="item">is completed: {{st.completed}}</div>
     <!-- <app-sentence name="summary2" [formControl]="martixControl" [text]="sentence"></app-sentence> -->
   </div>
 </div>
@@ -24,7 +27,7 @@
   <div>sentence: {{sentence}}</div>
   <div>martix: {{martix | json}}</div>
   <div>value: {{value}}</div>
-  <div>tokens:
+  <!-- <div>tokens:
     <pre>{{data | json}}</pre>
-  </div>
+  </div> -->
 </form>

@@ -14,7 +14,7 @@ export class SentenceTestComponent implements OnInit {
   value: string;
   data: any;
 
-  martixControl = new FormControl(this.martix);
+  // martixControl = new FormControl(this.martix);
 
   isDisabled = false;
   isRequired = false;
@@ -29,9 +29,9 @@ export class SentenceTestComponent implements OnInit {
 
   ngOnInit() {
 
-    this.martixControl.valueChanges.subscribe(v => {
-      this.martix = v;
-    });
+    // this.martixControl.valueChanges.subscribe(v => {
+    //   this.martix = v;
+    // });
   }
 
 }

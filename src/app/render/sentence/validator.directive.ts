@@ -25,7 +25,7 @@ export class SentenceValidatorDirective implements Validator {
   @Input() set required(value: boolean) {
 
     const req = value != null && value !== false && `${value}` !== 'false';
-    this.component._setRequired(req);
+    this.component.applyRequireConf(req);
 
     if (this._onChange) {
       this._onChange();
@@ -36,7 +36,7 @@ export class SentenceValidatorDirective implements Validator {
     if (this.component._tokenGroup.valid) {
       return null;
     } else {
-      return { sentence: false };
+      return { martix: '所有空格都需要填值。' };
     }
   }
 

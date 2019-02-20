@@ -11,7 +11,7 @@
       <input *ngIf="token.value.type === 'keyword'"
         type="text"
         formControlName="value" (blur)="_touched()"
-        [ngStyle]="_getStyle(token.value)" [required]="_required">
+        [ngStyle]="_getStyle(token.value)">
 
     </div>
 
