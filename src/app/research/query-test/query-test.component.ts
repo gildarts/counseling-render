@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, FormControlDirective } from '@angular/forms';
+import alldata from '../example';
 
 @Component({
   selector: 'app-query-test',
@@ -16,6 +17,8 @@ export class QueryTestComponent implements OnInit {
 
   data4 = demo4;
 
+  fulldata = alldata;
+
   dataControl = [
     new FormControl(this.data1),
     new FormControl(this.data2),
@@ -23,13 +26,26 @@ export class QueryTestComponent implements OnInit {
     new FormControl(this.data4)
   ];
 
+  fulldataGroup: FormControl[] = [];
+
   protected _disabled = false;
 
   protected _debug = false;
 
+  protected _show_all = false;
+
   constructor() { }
 
   ngOnInit() {
+
+    for (const subject of this.fulldata) {
+      for (const group of subject.QuestionGroup) {
+        for (const query of group.QuestionQuery) {
+          this.fulldataGroup.push(new FormControl(query.QuestionText));
+        }
+      }
+    }
+
   }
 
   toggleDisabled() {

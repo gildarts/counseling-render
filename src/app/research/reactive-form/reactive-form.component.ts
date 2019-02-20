@@ -12,12 +12,16 @@ export class ReactiveFormComponent implements OnInit {
 
   protected _disabled = false;
   protected _required = false;
+  protected _show = true;
 
   constructor(
     private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.name.valueChanges.subscribe(v => {
+      console.log(v);
+    });
   }
 
   toggleDisabled() {

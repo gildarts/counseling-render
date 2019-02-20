@@ -2,6 +2,8 @@
 <div class="card">
   <div class="card-body">
     <button class="btn btn-primary m-1" type="button"
+            (click)="_show_all = !_show_all">Show All Question</button>
+    <button class="btn btn-primary m-1" type="button"
             (click)="toggleDisabled()">Toggle Disable</button>
     <button class="btn btn-primary m-1" type="button"
             (click)="toggleDebug()">Toggle Debug</button>
@@ -15,43 +17,63 @@
   </div>
 </div>
 
-<div class="card mb-3" style="margin: 15px">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-2 font-weight-bold">出生地</div>
-      <div app-query-form [formControl]="dataControl[0]" [debug]="_debug"
-           class="col-sm-10 query"></div>
-    </div>
-  </div>
-</div>
+<ng-container *ngIf="!_show_all">
 
-<div class="card mb-3" style="margin: 15px">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-2 font-weight-bold">原住民</div>
-      <div app-query-form [formControl]="dataControl[1]" class="col-sm-10 query"
-           #query="appQueryForm" [debug]="_debug"></div>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3" style="margin: 15px">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-2 font-weight-bold">學生身分</div>
-      <div app-query-form [formControl]="dataControl[2]" class="col-sm-10 query"
-           [debug]="_debug"></div>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3" style="margin: 15px">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-2 font-weight-bold">學生身心障礙</div>
-      <div app-query-form [formControl]="dataControl[3]" class="col-sm-10 query"
-           [debug]="_debug">
+  <div class="card mb-3" style="margin: 15px">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-2 font-weight-bold">出生地</div>
+        <div app-query-form [formControl]="dataControl[0]" [debug]="_debug"
+             class="col-sm-10 query"></div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="card mb-3" style="margin: 15px">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-2 font-weight-bold">原住民</div>
+        <div app-query-form [formControl]="dataControl[1]"
+             class="col-sm-10 query"
+             #query="appQueryForm" [debug]="_debug"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3" style="margin: 15px">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-2 font-weight-bold">學生身分</div>
+        <div app-query-form [formControl]="dataControl[2]"
+             class="col-sm-10 query"
+             [debug]="_debug"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3" style="margin: 15px">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-2 font-weight-bold">學生身心障礙</div>
+        <div app-query-form [formControl]="dataControl[3]"
+             class="col-sm-10 query"
+             [debug]="_debug">
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="_show_all">
+  <div class="card mb-3" style="margin: 15px"
+       *ngFor="let query of fulldataGroup">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-2 font-weight-bold">自動產生</div>
+        <div app-query-form [formControl]="query" class="col-sm-10 query"
+             [debug]="_debug">
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
