@@ -33,7 +33,10 @@ export class SentenceValidatorDirective implements Validator {
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    if (this.component._tokenGroup.valid) {
+    const {_tokenGroup} = this.component;
+    // 在 disabled 狀態一般會是 valid = false。
+    // 但不需要回傳錯誤訊息。
+    if (_tokenGroup.valid || _tokenGroup.disabled) {
       return null;
     } else {
       return { martix: '所有空格都需要填值。' };
