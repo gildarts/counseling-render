@@ -9,6 +9,8 @@ import { RadioGroupDirective } from './query-form/radio-group.directive';
 import { RadioDirective } from './query-form/radio.directive';
 import { QueryFormValueAccessorDirective } from './query-form/value-accessor.directive';
 import { AutoCheckDirective } from './query-form/auto-check.directive';
+import { QueryFormValidatorDirective } from './query-form/validator.directive';
+import { RequiredOnCheckedDirective } from './query-form/required-on-checked.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { AutoCheckDirective } from './query-form/auto-check.directive';
     RadioGroupDirective,
     RadioDirective,
     QueryFormValueAccessorDirective,
-    AutoCheckDirective],
+    AutoCheckDirective,
+    QueryFormValidatorDirective,
+    RequiredOnCheckedDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule
@@ -30,6 +34,7 @@ import { AutoCheckDirective } from './query-form/auto-check.directive';
     SentenceValidatorDirective,
     QueryFormComponent,
     QueryFormValueAccessorDirective,
+    QueryFormValidatorDirective
   ]
 })
 export class RenderModule { }

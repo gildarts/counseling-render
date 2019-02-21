@@ -19,6 +19,8 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   _questionGroup = this.fb.group({"questions": new FormArray([])});
 
+  _required = true;
+
   constructor(
     private fb: FormBuilder
   ) { }
