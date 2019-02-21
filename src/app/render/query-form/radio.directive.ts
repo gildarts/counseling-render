@@ -1,9 +1,13 @@
 import { Directive, OnInit, HostListener, Optional, Input, OnDestroy, ElementRef } from '@angular/core';
-import { ControlContainer, FormArray } from '@angular/forms';
+import { ControlContainer, FormArray, FormGroup, AbstractControl } from '@angular/forms';
 import { RadioGroupDirective } from './radio-group.directive';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+/**
+ * 負責處理當 radio 被 click 時，會更新相關的 AnswerChecked 值。
+ * 主要是因為 html 內鍵的 radio 行為不符合需求。
+ */
 @Directive({
   selector: 'input[appRadio]'
 })
@@ -12,8 +16,8 @@ export class RadioDirective implements OnInit, OnDestroy {
   private _bag = new Subject<void>();
 
   constructor(
-    private radio: ControlContainer, // 只能用在 FormGroup、FormArray。
-    private group: RadioGroupDirective,
+    private option: ControlContainer, // 只能用在 FormGroup、FormArray。
+    private options: RadioGroupDirective,
     private elm: ElementRef<HTMLInputElement>
   ) { }
 
@@ -23,25 +27,32 @@ export class RadioDirective implements OnInit, OnDestroy {
   @Input() optionCode: string;
 
   @HostListener('click') click() {
-    const { formGroup: control } = this.group;
-    const question = control.value;
+    const question = this.options.formGroup;
+    const options = question.get("Options") as FormArray;
 
-    for (const option of question.Options) {
-      if (option["OptionCode"] === this.optionCode) {
-        option[this.appRadio] = true;
+    // 以下程式需要達到的效果是只更新 AnswerChecked。
+    // 並且只引發一次 Question 層級的 valueChanges 事件。
+    let checkedOption: AbstractControl;
+    for (const optGrp of options.controls) {
+      if (optGrp.value.OptionCode === this.optionCode) {
+        checkedOption = optGrp;
       } else {
-        option[this.appRadio] = false;
+        optGrp.patchValue({"AnswerChecked": false}, {emitEvent: false});
       }
     }
-    control.patchValue(question);
+
+    if (checkedOption) {
+      // 這裡才引發 Question 層級的 valueChanges 事件。
+      checkedOption.patchValue({ "AnswerChecked": true });
+    }
   }
 
   ngOnInit(): void {
 
     // 第一次設值。
-    this.setChecked(this.radio.control.value);
+    this.setChecked(this.option.control.value);
 
-    this.radio.control.valueChanges.pipe(
+    this.option.control.valueChanges.pipe(
       takeUntil(this._bag)
     )
       .subscribe(v => {

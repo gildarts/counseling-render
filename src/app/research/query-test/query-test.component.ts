@@ -97,6 +97,15 @@ const demo1 = [
         "AnswerMatrix": [],
         "AnswerChecked": false,
         "AnswerComplete": false
+      },
+      {
+        "AnswerID": 999,
+        "OptionCode": "100000031",
+        "OptionText": "神奇的：%TEXT2%, %TEXT3%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
       }
     ]
   }

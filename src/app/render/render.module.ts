@@ -8,6 +8,7 @@ import { QueryFormComponent } from './query-form/query-form.component';
 import { RadioGroupDirective } from './query-form/radio-group.directive';
 import { RadioDirective } from './query-form/radio.directive';
 import { QueryFormValueAccessorDirective } from './query-form/value-accessor.directive';
+import { AutoCheckDirective } from './query-form/auto-check.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { QueryFormValueAccessorDirective } from './query-form/value-accessor.dir
     QueryFormComponent,
     RadioGroupDirective,
     RadioDirective,
-    QueryFormValueAccessorDirective],
+    QueryFormValueAccessorDirective,
+    AutoCheckDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule

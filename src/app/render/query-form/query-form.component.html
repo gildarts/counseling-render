@@ -29,6 +29,7 @@
                          [attr.name]="_quest(question).QuestionCode"
                          appRadio="AnswerChecked"
                          [optionCode]="_opt(option).OptionCode"
+                         appAutoCheck
                          class="custom-control-input"
                          [disabled]="_disabled">
                   <label class="custom-control-label"
@@ -46,6 +47,7 @@
                      class="custom-control custom-checkbox custom-control-inline mb-3 ">
                   <input type="checkbox" class="custom-control-input"
                          [attr.id]="_opt(option).OptionCode"
+                         appAutoCheck
                          formControlName="AnswerChecked">
                   <label class="custom-control-label"
                          [attr.for]="_opt(option).OptionCode">
