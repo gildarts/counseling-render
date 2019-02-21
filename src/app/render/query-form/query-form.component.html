@@ -27,7 +27,9 @@
                   <input type="radio" [attr.id]="c_option(option).OptionCode"
                          value="true"
                          [attr.name]="c_question(question).QuestionCode"
-                         appRadio="AnswerChecked" class="custom-control-input"
+                         appRadio="AnswerChecked"
+                         [optionCode]="c_option(option).OptionCode"
+                         class="custom-control-input"
                          [disabled]="_disabled">
                   <label class="custom-control-label"
                          [attr.for]="c_option(option).OptionCode">

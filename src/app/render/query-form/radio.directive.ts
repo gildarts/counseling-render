@@ -17,23 +17,23 @@ export class RadioDirective implements OnInit, OnDestroy {
     private elm: ElementRef<HTMLInputElement>
   ) { }
 
+  /** 對應要更新的欄位名稱。 */
   @Input() appRadio: string;
+
+  @Input() optionCode: string;
 
   @HostListener('click') click() {
     const { control } = this.group;
-    const optionsForm = control.get("Options") as FormArray;
+    const question = control.value;
 
-    // 先把所有「AnswerChecked」值更新為 false。
-    for (const ctl of optionsForm.controls) {
-      const falseValue: any = {};
-      falseValue[this.appRadio] = false;
-      ctl.patchValue(falseValue);
+    for (const option of question.Options) {
+      if (option["OptionCode"] === this.optionCode) {
+        option[this.appRadio] = true;
+      } else {
+        option[this.appRadio] = false;
+      }
     }
-
-    // 再把自已的「AnswerChecked」值更新為 true。
-    const trueValue: any = {};
-    trueValue[this.appRadio] = true;
-    this.radio.control.patchValue(trueValue);
+    control.patchValue(question);
   }
 
   ngOnInit(): void {

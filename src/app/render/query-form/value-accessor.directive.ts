@@ -19,7 +19,9 @@ export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, Contr
 
   private _bag = new Subject<void>();
 
+  // 從 UI 來的變更，如果 UI 變更本來就會更新 form control 的值，且應該不需要此事件。
   private _onChange: any;
+  // 暫時沒有用到。
   private _onTouched: any;
 
   constructor(
@@ -28,11 +30,6 @@ export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, Contr
   }
 
   ngOnInit(): void {
-    this.component.dataChange.pipe(
-      takeUntil(this._bag)
-    ).subscribe(v => {
-      this._onChange(v);
-    });
   }
 
   ngOnDestroy(): void {
@@ -42,6 +39,7 @@ export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, Contr
 
   writeValue(obj: any): void {
     this.component.dataSource = obj;
+    this.component._initQuestionGroup();
   }
 
   registerOnChange(fn: any): void {
