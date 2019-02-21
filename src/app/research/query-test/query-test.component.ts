@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormControlDirective } from '@angular/forms';
 import alldata from '../example';
-import { QueryFormComponent } from 'src/app/render';
+import { QueryFormComponent } from '../../render';
 
 @Component({
   selector: 'app-query-test',
