@@ -23,7 +23,7 @@ export class RadioDirective implements OnInit, OnDestroy {
   @Input() optionCode: string;
 
   @HostListener('click') click() {
-    const { control } = this.group;
+    const { formGroup: control } = this.group;
     const question = control.value;
 
     for (const option of question.Options) {
@@ -37,19 +37,25 @@ export class RadioDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    // 第一次設值。
+    this.setChecked(this.radio.control.value);
+
     this.radio.control.valueChanges.pipe(
       takeUntil(this._bag)
     )
-    .subscribe( v => {
-      if (!this.radio.disabled) {
-        const val = v[this.appRadio];
-        this.elm.nativeElement.checked = val;
-      }
-    });
+      .subscribe(v => {
+        this.setChecked(v); // 值有變化時。
+      });
   }
 
   ngOnDestroy(): void {
     this._bag.next();
     this._bag.complete();
+  }
+
+  setChecked(option: any) {
+    const val = option[this.appRadio];
+    this.elm.nativeElement.checked = val;
   }
 }

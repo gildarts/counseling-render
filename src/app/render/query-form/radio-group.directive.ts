@@ -11,7 +11,7 @@ export class RadioGroupDirective {
     private parent: ControlContainer
   ) { }
 
-  public get control(): FormGroup {
+  public get formGroup(): FormGroup {
     return this.parent.control as FormGroup;
   }
 }
