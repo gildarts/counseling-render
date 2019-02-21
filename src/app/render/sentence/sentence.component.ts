@@ -84,12 +84,25 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
   public applyRequireConf(required: boolean) {
     // 內部所有產生出來的 input 都會 binding 這個屬性。
     this._required = required;
-    this.setUIDirty();
-    this.applyChanges();
+
+    const inputs = this._tokenGroup.get("inputs") as FormArray;
+    for (const input of inputs.controls) {
+
+      const token = input.value as TokenData;
+      if (token.type === "keyword") { // keyword 才需要驗證。
+        input.get("value").setValidators(control => {
+          if (control.value || control.value === 0) {
+            return null;
+          } else {
+            return {token_value: '此欄位必填。'}; // 有填值時為 true。
+          }
+        });
+      }
+    }
   }
 
   // 用於 value accessor directive 呼叫，啟用或停用所有 input。
-  public _setDisabledState(isDisabled: boolean) {
+  _setDisabledState(isDisabled: boolean) {
     this._disabled = isDisabled;
     this.setDisabled(this._disabled);
   }
