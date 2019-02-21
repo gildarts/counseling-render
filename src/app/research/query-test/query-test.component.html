@@ -30,6 +30,7 @@
       <div class="row">
         <div class="col-sm-2 font-weight-bold">出生地</div>
         <div app-query-form [formControl]="dataControl[0]" [debug]="_debug"
+             #query="appQueryForm"
              class="col-sm-10 query"></div>
       </div>
     </div>
@@ -51,6 +52,7 @@
       <div class="row">
         <div class="col-sm-2 font-weight-bold">學生身分</div>
         <div app-query-form [formControl]="dataControl[2]"
+             #query="appQueryForm"
              class="col-sm-10 query"
              [debug]="_debug"></div>
       </div>
@@ -62,6 +64,7 @@
       <div class="row">
         <div class="col-sm-2 font-weight-bold">學生身心障礙</div>
         <div app-query-form [formControl]="dataControl[3]"
+             #query="appQueryForm"
              class="col-sm-10 query"
              [debug]="_debug">
         </div>
@@ -78,7 +81,7 @@
         <div class="col-sm-2 font-weight-bold">自動產生</div>
         <div app-query-form [formControl]="query" class="col-sm-10 query"
              [debug]="_debug">
-            </div>
+        </div>
       </div>
     </div>
   </div>

@@ -15,6 +15,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   private _bag = new Subject<void>();
   private _valueChangesRegistered = false;
+  private _originValue: string ; // 原始值，用於 resetValue。
 
   _questionGroup = this.fb.group({"questions": new FormArray([])});
 
@@ -43,12 +44,17 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
     this._bag.complete();
   }
 
-  getQuestionsControl() {
+  /** 將所有值還原到剛開始「未修改(不一定是空值)」的狀態。 */
+  public resetValues() {
+    this._initQuestionGroup(true);
+  }
+
+  _getQuestionsControl() {
     const ctl = this._questionGroup.get("questions") as FormArray;
     return (ctl || {controls: []}).controls as FormGroup[];
   }
 
-  getOptionsControl(q: FormGroup) {
+  _getOptionsControl(q: FormGroup) {
     const ctl = q.get("Options") as FormArray;
     return (ctl || { controls: [] }).controls;
   }
@@ -58,15 +64,15 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // 這裡只是為了在 html 中有 intellscense.
-  c_option(o: FormGroup): Option {
+  _opt(o: FormGroup): Option {
     return o.value;
   }
 
-  c_question(q: FormGroup): Question {
+  _quest(q: FormGroup): Question {
     return q.value;
   }
 
-  setDisabledState(isDisabled: boolean) {
+  _setDisabledState(isDisabled: boolean) {
       if (isDisabled) {
         this._questionGroup.disable();
       } else {
@@ -75,8 +81,17 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /** 依 dataSource 最新狀態產生畫面。 */
-  _initQuestionGroup() {
-    const data = this.dataSource;
+  _initQuestionGroup(toOriginal = false) {
+    let data = this.dataSource;
+
+    if (toOriginal) { // 還原到原始值。
+      data = JSON.parse(this._originValue);
+    } else {
+      this._originValue = JSON.stringify(data);
+    }
+
+    if (!data) { data = []; }
+
     const questionArray = data.map(quest => {
       const optionArray = quest.Options.map(opt => {
         return this.fb.group({

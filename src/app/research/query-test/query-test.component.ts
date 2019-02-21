@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormControlDirective } from '@angular/forms';
 import alldata from '../example';
+import { QueryFormComponent } from 'src/app/render';
 
 @Component({
   selector: 'app-query-test',
@@ -36,6 +37,8 @@ export class QueryTestComponent implements OnInit {
 
   constructor() { }
 
+  @ViewChildren('query') query: QueryList<QueryFormComponent>;
+
   ngOnInit() {
 
     for (const subject of this.fulldata) {
@@ -63,7 +66,9 @@ export class QueryTestComponent implements OnInit {
   }
 
   resetValues() {
-    this.dataControl.forEach(v => v.reset());
+    for (const q of this.query.toArray()) {
+      q.resetValues();
+    }
   }
 }
 

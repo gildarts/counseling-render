@@ -39,6 +39,8 @@ export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, Contr
 
   writeValue(obj: any): void {
     this.component.dataSource = obj;
+
+    // 參數為是否要執行 resetValue。
     this.component._initQuestionGroup();
   }
 
@@ -50,7 +52,7 @@ export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, Contr
     this._onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.component.setDisabledState(isDisabled);
+    this.component._setDisabledState(isDisabled);
   }
 
 }
