@@ -23,6 +23,10 @@ export class AutoCheckDirective implements OnInit, OnDestroy {
     control.get("AnswerMatrix").valueChanges.pipe(
       takeUntil(this._bag)
     ).subscribe(v => {
+
+      // 在 disabled 狀態執行會產生很怪的狀況。
+      if (this.optionGroup.disabled) { return; }
+
       // 沒有 checked 才執行 click 事件。
       if (!this.elm.nativeElement.checked) {
         // 這會使 question 引發第二次事件
