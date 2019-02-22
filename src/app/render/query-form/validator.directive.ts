@@ -39,7 +39,7 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
 
   validate(control: AbstractControl): ValidationErrors {
 
-    if (control.valid) {
+    if (this.component._questionGroup.valid) {
       return null;
     } else {
       return {query_form: '有缺失。'};

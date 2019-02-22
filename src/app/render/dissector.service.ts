@@ -11,11 +11,11 @@ export class SentenceService {
   /**
    * 解析字串。
    * @param sentence 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
-   * @param martix ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
+   * @param matrix ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
    */
-  public apply(sentence: string, martix: string[]) {
+  public apply(sentence: string, matrix: string[]) {
     const interpreter = new SentenceDissector(sentence);
-    return interpreter.applyMartix(martix);
+    return interpreter.applyMatrix(matrix);
   }
 
   /** 建立解析器。 */

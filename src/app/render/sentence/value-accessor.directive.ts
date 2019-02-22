@@ -27,7 +27,7 @@ export class SentenceValueAccessorDirective implements OnInit, OnDestroy, Contro
   ) { }
 
   ngOnInit(): void {
-    this.component.martixChange
+    this.component.matrixChange
     .pipe(takeUntil(this._bag))
     .subscribe(v => {
       // 變更 disable 狀態時，會引發此事件，我不確定是 bug 還是本來就這樣，但會造成怪怪現像。
@@ -38,7 +38,7 @@ export class SentenceValueAccessorDirective implements OnInit, OnDestroy, Contro
       }
     });
 
-    this.component._martixTouched
+    this.component._matrixTouched
     .pipe(takeUntil(this._bag))
     .subscribe(v => {
       this._onTouched();
@@ -51,7 +51,7 @@ export class SentenceValueAccessorDirective implements OnInit, OnDestroy, Contro
   }
 
   writeValue(obj: any): void {
-    this.component.martix = obj;
+    this.component.matrix = obj;
 
     if (!obj) {
       this.component.resetValues();

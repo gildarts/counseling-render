@@ -10,11 +10,9 @@ import { FormControl } from '@angular/forms';
 export class SentenceTestComponent implements OnInit {
 
   sentence = `飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）`;
-  martix = ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜'];
+  matrix = ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜'];
   value: string;
   data: any;
-
-  // martixControl = new FormControl(this.martix);
 
   isDisabled = false;
   isRequired = false;
@@ -22,16 +20,13 @@ export class SentenceTestComponent implements OnInit {
   constructor(
     stnSrv: SentenceService
   ) {
-    this.data = stnSrv.apply(this.sentence, this.martix);
+    this.data = stnSrv.apply(this.sentence, this.matrix);
 
     this.value = stnSrv.join(this.data);
   }
 
   ngOnInit() {
 
-    // this.martixControl.valueChanges.subscribe(v => {
-    //   this.martix = v;
-    // });
   }
 
 }

@@ -39,7 +39,7 @@ export class SentenceValidatorDirective implements Validator {
     if (_tokenGroup.valid || _tokenGroup.disabled) {
       return null;
     } else {
-      return { martix: '所有空格都需要填值。' };
+      return { matrix: '所有空格都需要填值。' };
     }
   }
 

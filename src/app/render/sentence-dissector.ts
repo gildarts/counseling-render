@@ -10,13 +10,13 @@ export class SentenceDissector {
     this._expressions = this.interpret();
   }
 
-  public applyMartix(martix: string[]) {
+  public applyMatrix(matrix: string[]) {
 
     const records: TokenData[] = [];
 
     for (let i = 0 ; i < this._expressions.length; i++) {
       const exp = this._expressions[i];
-      const value = martix[i] || '';
+      const value = matrix[i] || '';
 
       if (exp instanceof LiterallyExpression) {
         records.push({

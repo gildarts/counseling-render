@@ -11,7 +11,7 @@ example:
 <app-sentence
   [disabled]="isDisabled" // 設定 input 的 disabled 狀態。
   [required]="isRequired" // 設定 input 的 required 設定，如果為 true 則所有 input 都需要有值。
-  [(ngModel)]="martix"  // 相容 angular 內鍵的 ngModel 用法。
+  [(ngModel)]="matrix"  // 相容 angular 內鍵的 ngModel 用法。
   [text]="sentence"   // 設定 text pattern，例：「請輸入你的名字%TEXT2%」。
   #sentence></app-sentence>
 
@@ -35,7 +35,7 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
   _required = false; // 是否所有欄位都是必填狀態。
 
   // private _text: string; // 飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）
-  // private _martix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
+  // private _matrix: string[]; // ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜']
 
   public _disabled = false; // 是否停用所有 input。
   private _dissector: SentenceDissector;
@@ -50,12 +50,12 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
   @Input() text: string;
 
   // 這個屬性也有可能透過 value accessor directive 寫入。
-  @Input() martix: string[];
+  @Input() matrix: string[];
 
   /**
-   * martix 變更時。
+   * matrix 變更時。
    */
-  @Output() martixChange = new EventEmitter<string[]>();
+  @Output() matrixChange = new EventEmitter<string[]>();
 
   /**
    * 取得最後產出的文字。
@@ -79,7 +79,7 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // 用於任何 input 被 touch 引發，通知外部程式已被 touch。
-  _martixTouched = new EventEmitter<void>();
+  _matrixTouched = new EventEmitter<void>();
 
   public applyRequireConf(required: boolean) {
     // 內部所有產生出來的 input 都會 binding 這個屬性。
@@ -113,11 +113,11 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
 
   // input blur 事件呼叫，引發事件通知 value accessor directive 此 control 已被 touch。
   _touched() {
-    this._martixTouched.emit();
+    this._matrixTouched.emit();
   }
 
   /**
-   * 取得 martix 裡面每一元素所代表的相關資訊。
+   * 取得 matrix 裡面每一元素所代表的相關資訊。
    */
   _getTokenControls() {
     const arr = this._tokenGroup.get("inputs") as FormArray;
@@ -149,11 +149,11 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
         // 變更 disable 狀態時，會引發此事件，我不確定是 bug 還是本來就這樣，但會造成怪怪現像。
         if (!this._tokenGroup.disabled) {
           const { inputs }: { inputs: TokenData[] } = v;
-          const newMartix = inputs.map(t => t.value);
+          const newMatrix = inputs.map(t => t.value);
 
-          if (!isEqual(this.martix, newMartix)) {
-            this.martix = newMartix;
-            this.martixChange.emit(this.martix);
+          if (!isEqual(this.matrix, newMatrix)) {
+            this.matrix = newMatrix;
+            this.matrixChange.emit(this.matrix);
           }
 
         }
@@ -175,8 +175,8 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
       }
     }
 
-    if (changes.martix) {
-      const { previousValue, currentValue } = changes.martix;
+    if (changes.matrix) {
+      const { previousValue, currentValue } = changes.matrix;
 
       if (!isEqual(previousValue, currentValue)) {
         if (!currentValue) {
@@ -192,8 +192,8 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
 
   applyChanges() {
 
-    if (this._ui_dirty && this._dissector && this.martix) {
-      const tokens = this._dissector.applyMartix(this.martix);
+    if (this._ui_dirty && this._dissector && this.matrix) {
+      const tokens = this._dissector.applyMatrix(this.matrix);
       const controls = tokens.map(v => {
         if (v.type === "keyword" && this._required) {
           const g = { ...v, value: [v.value, Validators.required] };
