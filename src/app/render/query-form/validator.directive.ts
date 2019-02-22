@@ -13,7 +13,7 @@ export const QUERYFORM_VALIDATOR: StaticProvider = {
 
 @Directive({
   selector: '[app-query-form][ngModel],[app-query-form][formControl],[app-query-form][formControlName]',
-  providers: [ QUERYFORM_VALIDATOR]
+  providers: [QUERYFORM_VALIDATOR]
 })
 export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator {
 
@@ -57,11 +57,11 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
       const q = qg.value as Question;
 
       if (q.Type === "單選") {
-        this.validSingleSelect(qg, errors);
-      } else if (q.Type === "填答") {
-        console.log('skip');
+        this.validSelect(qg, errors);
       } else if (q.Type === "複選") {
-        console.log('skip');
+        this.validSelect(qg, errors);
+      } else if (q.Type === "填答") {
+        this.validTextInput(qg, errors);
       }
     }
 
@@ -72,30 +72,45 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
     }
   }
 
-  private validSingleSelect(qg: FormGroup, errors: any) {
-    const ogs = this.getOptionsControl(qg);
-    const q = qg.value as Question;
+  private validSelect(qg: FormGroup, errors: any) {
+    const optionsArray = this.getOptionsControl(qg);
+    const question = qg.value as Question;
     let qValid = false;
     let oMsg = null;
 
-    for (const og of ogs) {
-      const o = og.value as Option;
-      qValid = qValid || o.AnswerChecked;
+    for (const og of optionsArray) {
+      const option = og.value as Option;
+      // 只要有 check 任何一個 option 都是 valid 狀態。
+      qValid = qValid || option.AnswerChecked;
 
-      if (o.AnswerChecked) {
+      if (option.AnswerChecked) {
         const matrix = og.get("AnswerMatrix") as FormControl;
-        if (!matrix.valid) {
-          oMsg = "已選擇的項目空格需要填值。";
-        }
+        if (!matrix.valid) { oMsg = "已選擇的項目空格需要填值。"; }
       }
     }
 
     if (!qValid) {
-      errors[q.QuestionCode] = "單選必填題目需要選擇一個項目。";
+      errors[question.QuestionCode] = "必選題需要選擇一個項目。";
     }
 
     if (oMsg && qValid) {
-      errors[q.QuestionCode] = oMsg;
+      errors[question.QuestionCode] = oMsg;
+    }
+    return errors;
+  }
+
+  private validTextInput(qg: FormGroup, errors: any) {
+    const optionsArray = this.getOptionsControl(qg);
+    const question = qg.value as Question;
+    let oMsg = null;
+
+    for (const oGroup of optionsArray) {
+      const matrix = oGroup.get("AnswerMatrix") as FormControl;
+      if (!matrix.valid) { oMsg = "項目空格需要填值。"; }
+    }
+
+    if (oMsg) {
+      errors[question.QuestionCode] = oMsg;
     }
 
     return errors;
