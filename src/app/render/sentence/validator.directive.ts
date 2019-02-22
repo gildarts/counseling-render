@@ -10,7 +10,7 @@ export const SENTENCE_VALIDATOR: StaticProvider = {
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: 'app-sentence[ngModel][required],app-sentence[formControl][required],app-sentence[formControlName][required]',
+  selector: 'app-sentence[ngModel][completeRequired],app-sentence[formControl][completeRequired],app-sentence[formControlName][completeRequired]',
   providers: [SENTENCE_VALIDATOR]
 })
 export class SentenceValidatorDirective implements Validator {
@@ -22,7 +22,7 @@ export class SentenceValidatorDirective implements Validator {
   ) { }
 
   // 是否為必填(只要是必填所有欄位都要必填)。
-  @Input() set required(value: boolean) {
+  @Input() set completeRequired(value: boolean) {
 
     const req = value != null && value !== false && `${value}` !== 'false';
     this.component.applyRequireConf(req);
@@ -32,7 +32,7 @@ export class SentenceValidatorDirective implements Validator {
     }
   }
 
-  get required(): boolean {
+  get completeRequired(): boolean {
     return this.component._required;
   }
 

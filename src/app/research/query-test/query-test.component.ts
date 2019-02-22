@@ -86,7 +86,7 @@ const demo1 = [
         "OptionText": "台灣地區，縣市：%TEXT2%",
         "AnswerValue": "",
         "AnswerMatrix": ["", "新竹縣"],
-        "AnswerChecked": true,
+        "AnswerChecked": false,
         "AnswerComplete": false
       },
       {

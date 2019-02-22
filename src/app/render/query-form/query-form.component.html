@@ -36,7 +36,7 @@
                          [attr.for]="_opt(option).OptionCode">
                     <app-sentence [text]="_opt(option).OptionText"
                                   formControlName="AnswerMatrix"
-                                  required="true"
+                                  completeRequired="true"
                                   ></app-sentence>
                   </label>
                 </div>
@@ -55,7 +55,7 @@
                          [attr.for]="_opt(option).OptionCode">
                     <app-sentence [text]="_opt(option).OptionText"
                                   formControlName="AnswerMatrix"
-                                  required="true"></app-sentence>
+                                  completeRequired="true"></app-sentence>
                   </label>
                 </div>
               </ng-container>
@@ -65,7 +65,7 @@
                             [formGroup]="option">
                 <app-sentence [text]="_opt(option).OptionText"
                               formControlName="AnswerMatrix"
-                              required="true"></app-sentence>
+                              completeRequired="true"></app-sentence>
               </ng-container>
 
               <pre *ngIf="debug"
