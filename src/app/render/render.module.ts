@@ -10,7 +10,6 @@ import { RadioDirective } from './query-form/radio.directive';
 import { QueryFormValueAccessorDirective } from './query-form/value-accessor.directive';
 import { AutoCheckDirective } from './query-form/auto-check.directive';
 import { QueryFormValidatorDirective } from './query-form/validator.directive';
-import { RequiredOnCheckedDirective } from './query-form/required-on-checked.directive';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { RequiredOnCheckedDirective } from './query-form/required-on-checked.dir
     RadioDirective,
     QueryFormValueAccessorDirective,
     AutoCheckDirective,
-    QueryFormValidatorDirective,
-    RequiredOnCheckedDirective],
+    QueryFormValidatorDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule

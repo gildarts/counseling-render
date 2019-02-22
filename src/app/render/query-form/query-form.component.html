@@ -35,8 +35,9 @@
                   <label class="custom-control-label"
                          [attr.for]="_opt(option).OptionCode">
                     <app-sentence [text]="_opt(option).OptionText"
-                                  formControlName="AnswerMatrix"></app-sentence>
-                                  <div>{{option.valid}}</div>
+                                  formControlName="AnswerMatrix"
+                                  required="true"
+                                  ></app-sentence>
                   </label>
                 </div>
               </ng-container>
@@ -53,7 +54,8 @@
                   <label class="custom-control-label"
                          [attr.for]="_opt(option).OptionCode">
                     <app-sentence [text]="_opt(option).OptionText"
-                                  formControlName="AnswerMatrix"></app-sentence>
+                                  formControlName="AnswerMatrix"
+                                  required="true"></app-sentence>
                   </label>
                 </div>
               </ng-container>
@@ -62,7 +64,8 @@
               <ng-container *ngIf="question.value.Type === '填答'"
                             [formGroup]="option">
                 <app-sentence [text]="_opt(option).OptionText"
-                              formControlName="AnswerMatrix"></app-sentence>
+                              formControlName="AnswerMatrix"
+                              required="true"></app-sentence>
               </ng-container>
 
               <pre *ngIf="debug"

@@ -1,5 +1,5 @@
 <form [formGroup]="_tokenGroup" class="flex_layout">
-
+<!-- (r:{{_required}})(v:{{_tokenGroup.valid}}) -->
   <ng-container *ngFor="let token of _getTokenControls(); let i=index">
 
     <div [formGroup]="token" class="align_center">

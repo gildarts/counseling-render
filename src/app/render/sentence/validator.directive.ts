@@ -32,6 +32,10 @@ export class SentenceValidatorDirective implements Validator {
     }
   }
 
+  get required(): boolean {
+    return this.component._required;
+  }
+
   validate(control: AbstractControl): ValidationErrors {
     const {_tokenGroup} = this.component;
     // 在 disabled 狀態一般會是 valid = false。

@@ -90,13 +90,20 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
 
       const token = input.value as TokenData;
       if (token.type === "keyword") { // keyword 才需要驗證。
-        input.get("value").setValidators(control => {
-          if (control.value || control.value === 0) {
-            return null;
-          } else {
-            return {token_value: '此欄位必填。'}; // 有填值時為 true。
-          }
-        });
+
+        const valCtl = input.get("value");
+        if (this._required) {
+          valCtl.setValidators(control => {
+            if (control.value || control.value === 0) {
+              return null;
+            } else {
+              return {token_value: '此欄位必填。'}; // 有填值時為 true。
+            }
+          });
+        } else {
+          valCtl.clearValidators();
+        }
+
       }
     }
   }

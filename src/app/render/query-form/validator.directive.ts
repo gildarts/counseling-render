@@ -11,7 +11,7 @@ export const QUERYFORM_VALIDATOR: StaticProvider = {
 };
 
 @Directive({
-  selector: 'test[app-query-form][ngModel],test[app-query-form][formControl],test[app-query-form][formControlName]',
+  selector: '[app-query-form][ngModel],[app-query-form][formControl],[app-query-form][formControlName]',
   providers: [ QUERYFORM_VALIDATOR]
 })
 export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator {
@@ -22,6 +22,10 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
   constructor(
     private component: QueryFormComponent
   ) {
+  }
+
+  private get required() {
+    return true;
   }
 
   ngOnInit(): void {
@@ -39,11 +43,12 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
 
   validate(control: AbstractControl): ValidationErrors {
 
-    if (this.component._questionGroup.valid) {
-      return null;
-    } else {
-      return {query_form: '有缺失。'};
-    }
+    if (!this.required) { return null; }
+    if (this.component._disabled) { return null; }
+
+    // 這裡需要依題型判斷必要的資料是否點合法。
+    return {query_form: '有缺失。'};
+
   }
 
   registerOnValidatorChange?(fn: () => void): void {
