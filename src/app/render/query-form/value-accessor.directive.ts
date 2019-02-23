@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { QueryFormComponent } from './query-form.component';
+import { AutoCheckDirective } from './auto-check.directive';
 
 export const QUERY_FORM_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
