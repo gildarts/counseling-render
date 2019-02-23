@@ -4,12 +4,14 @@ import { IndexComponent } from './index/index.component';
 import { SentenceTestComponent } from './sentence-test/sentence-test.component';
 import { QueryTestComponent } from './query-test/query-test.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { CoordinatorTestComponent } from './coordinator-test/coordinator-test.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
   { path: 'sentence', component: SentenceTestComponent },
   { path: 'query', component: QueryTestComponent },
-  { path: 'reactive', component: ReactiveFormComponent }
+  { path: 'reactive', component: ReactiveFormComponent },
+  { path: 'coordinator', component: CoordinatorTestComponent }
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { QOption } from 'src/app/core';
 
 /** QueryFormComponent 內部使用。 */
 export interface Question {

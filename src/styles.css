@@ -6,3 +6,7 @@
 .custom-control {
   padding-left: 2rem !important;
 }
+
+button {
+  text-transform: none !important;
+}

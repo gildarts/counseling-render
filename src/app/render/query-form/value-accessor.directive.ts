@@ -41,7 +41,7 @@ export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, Contr
   writeValue(obj: any): void {
     this.component.dataSource = obj;
 
-    // 參數為是否要執行 resetValue。
+    this.component._applyOptionsState();
     this.component._initQuestionGroup();
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { FormControl, FormGroup, FormArray, FormControlDirective } from '@angular/forms';
 import alldata from '../example';
 import { QueryFormComponent } from '../../render';
+import { OptionCheckCoordinatorService } from 'src/app/render/option-check-coordinator.service';
 
 @Component({
   selector: 'app-query-test',

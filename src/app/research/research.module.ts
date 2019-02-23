@@ -9,13 +9,15 @@ import { RenderModule } from '../render';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QueryTestComponent } from './query-test/query-test.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { CoordinatorTestComponent } from './coordinator-test/coordinator-test.component';
 
 @NgModule({
   declarations: [
     IndexComponent,
     SentenceTestComponent,
     QueryTestComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    CoordinatorTestComponent
   ],
   imports: [
     CommonModule,

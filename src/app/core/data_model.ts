@@ -28,7 +28,10 @@ export interface QOption {
   OptionCode: string;
   OptionText: string;
   AnswerValue: string;
-  AnswerMatrix: any[];
+  AnswerMatrix: string[];
   AnswerChecked: boolean;
+  /**
+   * 判斷是否填寫完整，若%RTEXT%項目留空=false
+   */
   AnswerComplete: boolean;
 }

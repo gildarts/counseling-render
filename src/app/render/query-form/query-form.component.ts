@@ -3,6 +3,8 @@ import { Question, Option } from './model';
 import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { OptionCheckCoordinatorService } from '../option-check-coordinator.service';
+import { flatten } from 'lodash';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,14 +17,15 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   private _bag = new Subject<void>();
   private _valueChangesRegistered = false;
-  private _originValue: string ; // 原始值，用於 resetValue。
+  private _originValue: string; // 原始值，用於 resetValue。
 
-  _questionGroup = this.fb.group({"questions": new FormArray([])});
+  _questionGroup = this.fb.group({ "questions": new FormArray([]) });
 
   _required = true;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private coorniator: OptionCheckCoordinatorService
   ) { }
 
   @Input() dataSource: Question[];
@@ -34,6 +37,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.dataSource) {
+      this._applyOptionsState();
       this._initQuestionGroup();
     }
   }
@@ -59,7 +63,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   _getQuestionsControl() {
     const ctl = this._questionGroup.get("questions") as FormArray;
-    return (ctl || {controls: []}).controls as FormGroup[];
+    return (ctl || { controls: [] }).controls as FormGroup[];
   }
 
   _getOptionsControl(q: FormGroup) {
@@ -81,11 +85,11 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   _setDisabledState(isDisabled: boolean) {
-      if (isDisabled) {
-        this._questionGroup.disable();
-      } else {
-        this._questionGroup.enable();
-      }
+    if (isDisabled) {
+      this._questionGroup.disable();
+    } else {
+      this._questionGroup.enable();
+    }
   }
 
   /** 依 dataSource 最新狀態產生畫面。 */
@@ -127,9 +131,18 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
       if (!this._questionGroup.disabled) {
         // 傳入的是陣列，但是 reactive form 機制關系，新增了 questions。
         this.dataSource = v.questions;
+        this._applyOptionsState();
         this.dataSourceChange.emit(this.dataSource);
       }
     });
     this._valueChangesRegistered = true;
+  }
+
+  _applyOptionsState() {
+    const optionHierarchy = this.dataSource
+      .filter(v => v.Type === "單選" || v.Type === "複選")
+      .map(v => v.Options);
+
+    this.coorniator.setStates(flatten(optionHierarchy));
   }
 }
