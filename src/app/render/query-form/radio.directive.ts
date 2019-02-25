@@ -1,8 +1,10 @@
 import { Directive, OnInit, HostListener, Optional, Input, OnDestroy, ElementRef } from '@angular/core';
-import { ControlContainer, FormArray, FormGroup, AbstractControl } from '@angular/forms';
+import { ControlContainer, FormArray, FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import { RadioGroupDirective } from './radio-group.directive';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { OptionCheckCoordinatorService } from '../option-check-coordinator.service';
+import { Option } from './model';
 
 /**
  * 負責處理當 radio 被 click 時，會更新相關的 AnswerChecked 值。
@@ -18,7 +20,8 @@ export class RadioDirective implements OnInit, OnDestroy {
   constructor(
     private option: ControlContainer, // 只能用在 FormGroup、FormArray。
     private options: RadioGroupDirective,
-    private elm: ElementRef<HTMLInputElement>
+    private elm: ElementRef<HTMLInputElement>,
+    private coordinator: OptionCheckCoordinatorService
   ) { }
 
   /** 對應要更新的欄位名稱。 */
@@ -34,10 +37,14 @@ export class RadioDirective implements OnInit, OnDestroy {
     // 並且只引發一次 Question 層級的 valueChanges 事件。
     let checkedOption: AbstractControl;
     for (const optGrp of options.controls) {
-      if (optGrp.value.OptionCode === this.optionCode) {
+      const option = optGrp.value as Option;
+
+      if (option.OptionCode === this.optionCode) {
         checkedOption = optGrp;
       } else {
-        optGrp.patchValue({"AnswerChecked": false}, {emitEvent: false});
+        if (option.AnswerChecked) {
+          optGrp.patchValue({"AnswerChecked": false}, {emitEvent: false });
+        }
       }
     }
 

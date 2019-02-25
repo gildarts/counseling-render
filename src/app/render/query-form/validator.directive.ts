@@ -2,8 +2,9 @@ import { Directive, StaticProvider, forwardRef, OnInit, OnDestroy } from '@angul
 import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { QueryFormComponent } from './query-form.component';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { Question, Option } from './model';
+import { OptionCheckCoordinatorService } from '../option-check-coordinator.service';
 
 export const QUERYFORM_VALIDATOR: StaticProvider = {
   provide: NG_VALIDATORS,
@@ -18,16 +19,13 @@ export const QUERYFORM_VALIDATOR: StaticProvider = {
 export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator {
 
   private _bag = new Subject<void>();
+  private _reset_sign = new Subject<void>();
   private _onChange: () => void;
 
   constructor(
-    private component: QueryFormComponent
-  ) {
-  }
-
-  private get required() {
-    return true;
-  }
+    private component: QueryFormComponent,
+    private coordinator: OptionCheckCoordinatorService
+  ) { }
 
   ngOnInit(): void {
     this.component._questionGroup.valueChanges.pipe(
@@ -35,6 +33,22 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
     ).subscribe(v => {
       if (this._onChange) { this._onChange(); }
     });
+
+    // TODO: 需要解決 valueChange 之後 question 結構變更問題。
+    this.component._questionGroup.valueChanges.pipe(
+      take(1)
+    ).subscribe( ({questions}) => {
+
+      for (const question of questions) {
+        if (question.RequireLink) {
+          this.coordinator.register(question.RequireLink, this._bag)
+            .subscribe( v => {
+              if (this._onChange) { this._onChange(); }
+            });
+        }
+      }
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -44,7 +58,6 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
 
   validate(control: AbstractControl): ValidationErrors {
 
-    if (!this.required) { return null; }
     if (this.component._disabled) { return null; }
 
     const questions = this.component._questionGroup.get("questions") as FormArray;
@@ -53,8 +66,11 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
 
     // 檢查每一個問題。
     for (const qg of questions.controls as FormGroup[]) {
+
       // each Question FormGroup
       const q = qg.value as Question;
+
+      if (!this.required(q)) { continue; }
 
       if (q.Type === "單選") {
         this.validSelect(qg, errors);
@@ -69,6 +85,15 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
       return errors;
     } else {
       return null;
+    }
+  }
+
+  private required(q: Question) {
+
+    if (q.Require) { return true; }
+
+    if (q.RequireLink) {
+      return this.coordinator.getState(q.RequireLink);
     }
   }
 

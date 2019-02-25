@@ -77,7 +77,7 @@ const demo1 = [
   {
     "QuestionCode": "Q10000003",
     "Type": "單選",
-    "Require": true,
+    "Require": false,
     "RequireLink": "10000038",
     "Text": "",
     "Options": [
@@ -116,8 +116,8 @@ const demo2 = [
   {
     "QuestionCode": "Q10000017",
     "Type": "單選",
-    "Require": true,
-    "RequireLink": "",
+    "Require": false,
+    "RequireLink": "10000013",
     "Text": "領有身心障礙手冊",
     "Options": [
       {
@@ -143,7 +143,7 @@ const demo2 = [
   {
     "QuestionCode": "Q10000018",
     "Type": "填答",
-    "Require": true,
+    "Require": false,
     "RequireLink": "",
     "Text": "身心障礙等級",
     "Options": [
@@ -161,7 +161,7 @@ const demo2 = [
   {
     "QuestionCode": "Q10000019",
     "Type": "填答",
-    "Require": true,
+    "Require": false,
     "RequireLink": "",
     "Text": "鑑定日期",
     "Options": [
@@ -179,7 +179,7 @@ const demo2 = [
   {
     "QuestionCode": "Q10000020",
     "Type": "填答",
-    "Require": true,
+    "Require": false,
     "RequireLink": "",
     "Text": "鑑定文號",
     "Options": [
@@ -197,7 +197,7 @@ const demo2 = [
   {
     "QuestionCode": "Q10000021",
     "Type": "填答",
-    "Require": true,
+    "Require": false,
     "RequireLink": "",
     "Text": "身心障礙類別",
     "Options": [

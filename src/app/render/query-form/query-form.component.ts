@@ -143,6 +143,11 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
       .filter(v => v.Type === "單選" || v.Type === "複選")
       .map(v => v.Options);
 
+      // TODO: 之後需要考慮如果此 component 消滅時是否需要清除相關資料。
     this.coorniator.setStates(flatten(optionHierarchy));
+  }
+
+  _resetOptionsState() {
+    // 設計清除相關 state 機制。
   }
 }

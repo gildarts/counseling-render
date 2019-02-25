@@ -57,6 +57,10 @@ export class OptionCheckCoordinatorService {
 
   private setState(option: OptionState) {
     const { OptionCode, AnswerChecked } = option;
+
+    // 「新狀態」與「目前狀態」相同就不執行資料設定與事件引發。
+    if (this._checkStateMap.get(OptionCode) === AnswerChecked) { return; }
+
     this._checkStateMap.set(OptionCode, AnswerChecked);
 
     // 果有包含，表示有人訂閱就 emit event。
