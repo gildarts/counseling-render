@@ -10,6 +10,7 @@ import { RadioDirective } from './query-form/radio.directive';
 import { QueryFormValueAccessorDirective } from './query-form/value-accessor.directive';
 import { AutoCheckDirective } from './query-form/auto-check.directive';
 import { QueryFormValidatorDirective } from './query-form/validator.directive';
+import { AnswerValueSyncDirective } from './query-form/answer-value-sync.directive';
 
 @NgModule({
   declarations: [
@@ -17,11 +18,12 @@ import { QueryFormValidatorDirective } from './query-form/validator.directive';
     SentenceValueAccessorDirective,
     SentenceValidatorDirective,
     QueryFormComponent,
+    QueryFormValueAccessorDirective,
+    QueryFormValidatorDirective,
     RadioGroupDirective,
     RadioDirective,
-    QueryFormValueAccessorDirective,
     AutoCheckDirective,
-    QueryFormValidatorDirective],
+    AnswerValueSyncDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule

@@ -37,6 +37,7 @@
                          [attr.for]="_opt(option).OptionCode">
                     <app-sentence [text]="_opt(option).OptionText"
                                   formControlName="AnswerMatrix"
+                                  appAnswerValueSync
                                   completeRequired="true"></app-sentence>
                   </label>
                 </div>
@@ -55,6 +56,7 @@
                          [attr.for]="_opt(option).OptionCode">
                     <app-sentence [text]="_opt(option).OptionText"
                                   formControlName="AnswerMatrix"
+                                  appAnswerValueSync
                                   completeRequired="true"></app-sentence>
                   </label>
                 </div>
@@ -65,6 +67,7 @@
                             [formGroup]="option">
                 <app-sentence [text]="_opt(option).OptionText"
                               formControlName="AnswerMatrix"
+                              appAnswerValueSync
                               completeRequired="true"></app-sentence>
               </ng-container>
 
