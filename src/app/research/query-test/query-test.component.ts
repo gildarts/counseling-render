@@ -143,7 +143,7 @@ const demo2 = [
   {
     "QuestionCode": "Q10000018",
     "Type": "填答",
-    "Require": false,
+    "Require": true,
     "RequireLink": "",
     "Text": "身心障礙等級",
     "Options": [
@@ -162,7 +162,7 @@ const demo2 = [
     "QuestionCode": "Q10000019",
     "Type": "填答",
     "Require": false,
-    "RequireLink": "",
+    "RequireLink": "10000058",
     "Text": "鑑定日期",
     "Options": [
       {

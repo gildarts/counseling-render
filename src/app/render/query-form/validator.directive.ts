@@ -132,6 +132,7 @@ export class QueryFormValidatorDirective implements OnInit, OnDestroy, Validator
     for (const oGroup of optionsArray) {
       const matrix = oGroup.get("AnswerMatrix") as FormControl;
       if (!matrix.valid) { oMsg = "項目空格需要填值。"; }
+      if (matrix.value && matrix.value.length <= 0) { oMsg = "項目空格需要填值。"; }
     }
 
     if (oMsg) {
