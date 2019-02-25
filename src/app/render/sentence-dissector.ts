@@ -22,7 +22,7 @@ export class SentenceDissector {
         records.push({
           type: 'literally',
           text: exp.text,
-          value: value,
+          value: exp.text,
           size: 0,
           required: true
         } as TokenData);
