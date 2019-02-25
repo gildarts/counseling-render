@@ -131,8 +131,18 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
     return (arr || { controls: [] }).controls;
   }
 
+  _getGroupStyle(data: TokenData) {
+    if (data.size < 0) {
+      return {
+        flex: 1,
+      };
+    } else {
+      return {};
+    }
+  }
+
   // 產生畫面時取得相應的樣式(寬度)。
-  _getStyle(data: TokenData) {
+  _getControlStyle(data: TokenData) {
 
     const base = 100;
     let size = 1;
@@ -143,6 +153,7 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
 
     return {
       width: `${size * base}px`,
+      flex: 1,
       // 在語法中暫不單獨支援 required 的設定。
       // 'border-bottom-color': data.required ? 'red' : 'unset'
     };

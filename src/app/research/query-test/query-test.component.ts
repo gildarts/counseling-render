@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { FormControl, FormGroup, FormArray, FormControlDirective } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import alldata from '../example';
 import { QueryFormComponent } from '../../render';
-import { OptionCheckCoordinatorService } from 'src/app/render/option-check-coordinator.service';
 
 @Component({
   selector: 'app-query-test',
@@ -205,6 +204,24 @@ const demo2 = [
         "AnswerID": 41,
         "OptionCode": "10000042",
         "OptionText": "%TEXT3%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  },
+  {
+    "QuestionCode": "Q10000021.1",
+    "Type": "填答",
+    "Require": false,
+    "RequireLink": "",
+    "Text": "身心障礙心得",
+    "Options": [
+      {
+        "AnswerID": 41.1,
+        "OptionCode": "10000042.1",
+        "OptionText": "%TEXTAREA%",
         "AnswerValue": "",
         "AnswerMatrix": [],
         "AnswerChecked": false,

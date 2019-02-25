@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 })
 export class SentenceTestComponent implements OnInit {
 
-  sentence = `飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%）`;
+  sentence = `飛水：天使（%TEXT3%）、聖天馬（%TEXT1%）、吸血蝙蝠（%RTEXT2%）、龍蝦巨獸（%TEXT%），使用心得：%TEXTAREA%`;
   matrix = ['', '雪莉、安潔莉娜', '', '露娜', '', '索妮亞', '', '安潔莉娜'];
   value: string;
   data: any;

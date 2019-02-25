@@ -1,5 +1,5 @@
 
-const KeywordPattern = '\%([r]?)(text+)([0-9]{1,2})?\%';
+const KeywordPattern = '\%([r]?)(text(area)?)([0-9]{1,2})?\%';
 
 // text 折解器。
 export class SentenceDissector {
@@ -134,7 +134,15 @@ export class KeywordExpression extends Expression {
     this._text = text;
     this._type = 'keyword';
 
-    this.size = +regexp[3] || 0;
+    // g0 => full, g1 => required, g2 => text | textarea, g3 => area, g4 => length
+    // length < 0 是自動寬度。
+
+    if (regexp[3] && regexp[3].toLowerCase() === 'area') {
+      this.size = -1;
+    } else {
+      this.size = +regexp[4] || 0;
+    }
+
     this.require = ['R', 'r'].indexOf(regexp[1]) >= 0 ? true : false;
   }
 

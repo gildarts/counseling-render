@@ -46,8 +46,7 @@
               <!-- checkbox -->
               <ng-container *ngIf="question.value.Type === '複選'"
                             [formGroup]="option">
-                <div
-                     class="custom-control custom-checkbox custom-control-inline mb-3 ">
+                <div class="custom-control custom-checkbox custom-control-inline mb-3">
                   <input type="checkbox" class="custom-control-input"
                          [attr.id]="_opt(option).OptionCode"
                          appAutoCheck
@@ -63,13 +62,14 @@
               </ng-container>
 
               <!-- text input -->
-              <ng-container *ngIf="question.value.Type === '填答'"
-                            [formGroup]="option">
+              <div *ngIf="question.value.Type === '填答'"
+                   class="mb-3"
+                   [formGroup]="option">
                 <app-sentence [text]="_opt(option).OptionText"
                               formControlName="AnswerMatrix"
                               appAnswerValueSync
                               completeRequired="true"></app-sentence>
-              </ng-container>
+              </div>
 
               <pre *ngIf="debug"
                    class="debug_info">{{option.value | json}}</pre>

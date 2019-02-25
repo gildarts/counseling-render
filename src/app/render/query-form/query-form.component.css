@@ -5,9 +5,9 @@
 
 .question {
   display: flex;
+  /* flex: 1; */
   align-items: center;
   flex-wrap: wrap;
-  /* border-width: 1px; */
   margin: 2px;
   padding: 2px;
 }
