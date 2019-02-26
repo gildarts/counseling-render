@@ -11,6 +11,7 @@ import { QueryFormValueAccessorDirective } from './query-form/value-accessor.dir
 import { AutoCheckDirective } from './query-form/auto-check.directive';
 import { QueryFormValidatorDirective } from './query-form/validator.directive';
 import { AnswerValueSyncDirective } from './query-form/answer-value-sync.directive';
+import { QueryFormDemoComponent } from './query-form-demo/query-form-demo.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AnswerValueSyncDirective } from './query-form/answer-value-sync.directi
     RadioGroupDirective,
     RadioDirective,
     AutoCheckDirective,
-    AnswerValueSyncDirective],
+    AnswerValueSyncDirective,
+    QueryFormDemoComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule
@@ -34,7 +36,8 @@ import { AnswerValueSyncDirective } from './query-form/answer-value-sync.directi
     SentenceValidatorDirective,
     QueryFormComponent,
     QueryFormValueAccessorDirective,
-    QueryFormValidatorDirective
+    QueryFormValidatorDirective,
+    QueryFormDemoComponent
   ]
 })
 export class RenderModule { }
