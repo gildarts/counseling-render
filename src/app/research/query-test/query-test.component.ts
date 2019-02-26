@@ -20,6 +20,8 @@ export class QueryTestComponent implements OnInit {
 
   _show_all = false;
 
+  _count = 0;
+
   constructor() { }
 
   @ViewChildren('query') query: QueryList<QueryFormComponent>;
@@ -30,6 +32,9 @@ export class QueryTestComponent implements OnInit {
       for (const group of subject.QuestionGroup) {
         for (const query of group.QuestionQuery) {
           this.fulldataGroup.push(new FormControl(query.QuestionText));
+          this._count += query.QuestionText
+            .map(v => v.Options.length)
+            .reduce((p, c) => p + c);
         }
       }
     }
