@@ -54,17 +54,12 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   /** 將所有值還原到剛開始「未修改(不一定是空值)」的狀態。 */
   public resetValues() {
-    if (this._questionGroup.disabled) {
-      // 主要是因為 auth-check directive 會衝突。
-      // 在 disabled 狀態 reset 會造成，enabled 時將全部 option 進行 check。
-      throw new Error(`disabled 狀態無法 resetValues。`);
-    }
-
     this._initQuestionGroup(true);
   }
 
   /** 是否為單題目單選項的 TextArea Query。 */
   _isSingleTextAreaOption() {
+
     if (!this.dataSource) { return false; }
 
     if (this.dataSource.length > 1) { return false; }
@@ -101,9 +96,9 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   _setDisabledState(isDisabled: boolean) {
     if (isDisabled) {
-      this._questionGroup.disable();
+      this._questionGroup.disable({ emitEvent: false });
     } else {
-      this._questionGroup.enable();
+      this._questionGroup.enable({ emitEvent: false });
     }
   }
 
@@ -150,6 +145,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
         this.dataSourceChange.emit(this.dataSource);
       }
     });
+
     this._valueChangesRegistered = true;
   }
 
