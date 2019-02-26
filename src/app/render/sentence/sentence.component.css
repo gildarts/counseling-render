@@ -17,10 +17,10 @@ textarea:focus {
   outline: none !important;
 }
 
-/* textarea {
+textarea {
   border-width: 0px;
   border-bottom-width: 2px;
-} */
+}
 
 .flex_layout {
   display: flex;

@@ -18,13 +18,16 @@ export class QueryTestComponent implements OnInit {
 
   data4 = demo4;
 
+  data5 = demo5;
+
   fulldata = alldata;
 
   dataControl = [
     new FormControl(this.data1),
     new FormControl(this.data2),
     new FormControl(this.data3),
-    new FormControl(this.data4)
+    new FormControl(this.data4),
+    new FormControl(this.data5)
   ];
 
   fulldataGroup: FormControl[] = [];
@@ -204,24 +207,6 @@ const demo2 = [
         "AnswerID": 41,
         "OptionCode": "10000042",
         "OptionText": "%TEXT3%",
-        "AnswerValue": "",
-        "AnswerMatrix": [],
-        "AnswerChecked": false,
-        "AnswerComplete": false
-      }
-    ]
-  },
-  {
-    "QuestionCode": "Q10000021.1",
-    "Type": "填答",
-    "Require": false,
-    "RequireLink": "",
-    "Text": "身心障礙心得",
-    "Options": [
-      {
-        "AnswerID": 41.1,
-        "OptionCode": "10000042.1",
-        "OptionText": "%TEXTAREA%",
         "AnswerValue": "",
         "AnswerMatrix": [],
         "AnswerChecked": false,
@@ -482,6 +467,27 @@ const demo4 = [
         "OptionText": "夢戰陣營：%TEXT2%，等級：%TEXT%，綜合戰力：%TEXT%",
         "AnswerValue": "",
         "AnswerMatrix": ["", "公主聯盟", "", "60", "", "56000"],
+        "AnswerChecked": false,
+        "AnswerComplete": false
+      }
+    ]
+  }
+];
+
+const demo5 = [
+  {
+    "QuestionCode": "Q10000021.1",
+    "Type": "填答",
+    "Require": false,
+    "RequireLink": "",
+    "Text": "",
+    "Options": [
+      {
+        "AnswerID": 41.1,
+        "OptionCode": "10000042.1",
+        "OptionText": "%TEXTAREA%",
+        "AnswerValue": "",
+        "AnswerMatrix": [],
         "AnswerChecked": false,
         "AnswerComplete": false
       }

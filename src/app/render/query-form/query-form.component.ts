@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OptionCheckCoordinatorService } from '../option-check-coordinator.service';
 import { flatten } from 'lodash';
+import { SentenceService } from '../dissector.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -25,7 +26,8 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private fb: FormBuilder,
-    private coorniator: OptionCheckCoordinatorService
+    private coorniator: OptionCheckCoordinatorService,
+    private dissector: SentenceService
   ) { }
 
   @Input() dataSource: Question[];
@@ -59,6 +61,19 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     this._initQuestionGroup(true);
+  }
+
+  /** 是否為單題目單選項的 TextArea Query。 */
+  _isSingleTextAreaOption() {
+    if (!this.dataSource) { return false; }
+
+    if (this.dataSource.length > 1) { return false; }
+    if (this.dataSource[0].Options.length > 1) { return false; }
+    if (this.dataSource[0].Text) { return false; }
+
+    const sentence = this.dissector.create(this.dataSource[0].Options[0].OptionText);
+
+    return sentence.containsTextArea;
   }
 
   _getQuestionsControl() {

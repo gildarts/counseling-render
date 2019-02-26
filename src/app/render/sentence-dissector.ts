@@ -5,9 +5,22 @@ const KeywordPattern = '\%([r]?)(text(area)?)([0-9]{1,2})?\%';
 export class SentenceDissector {
 
   private _expressions: Expression[];
+  private _containsTextArea = false;
 
   constructor(private text: string) {
     this._expressions = this.interpret();
+
+    for (const exp of this._expressions) {
+      if (exp.isTextArea) {
+        this._containsTextArea = true;
+        break;
+      }
+    }
+  }
+
+  /** 是否包含了 TextArea 輸入框。 */
+  public get containsTextArea() {
+    return this._containsTextArea;
   }
 
   public applyMatrix(matrix: string[]) {
@@ -93,6 +106,8 @@ export class Expression {
 
   protected _type: TokenType;
 
+  protected _isTextArea = false;
+
   constructor() {
   }
 
@@ -102,6 +117,10 @@ export class Expression {
 
   public get type() {
     return this._type;
+  }
+
+  public get isTextArea() {
+    return this._isTextArea;
   }
 
   public static parse(text: string) {
@@ -139,6 +158,7 @@ export class KeywordExpression extends Expression {
 
     if (regexp[3] && regexp[3].toLowerCase() === 'area') {
       this.size = -1;
+      this._isTextArea = true;
     } else {
       this.size = +regexp[4] || 0;
     }
