@@ -11,6 +11,7 @@
                    class="mb-3"
                    [formGroup]="option">
                 <app-sentence [text]="_opt(option).OptionText"
+                              class="full_width"
                               formControlName="AnswerMatrix"
                               appAnswerValueSync
                               completeRequired="true"></app-sentence>

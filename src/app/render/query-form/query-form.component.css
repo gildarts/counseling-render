@@ -23,3 +23,7 @@
   border-color: red;
   margin: 3px;
 }
+
+.full_width {
+  flex: 1;
+}
