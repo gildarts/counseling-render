@@ -1,3 +1,37 @@
-<p>
-  large-amount works!
-</p>
+<button type="button" (click)="_show = !_show" class="btn btn-prmiary">Toggle Show</button>
+<button type="button" (click)="_impl = 'new'" class="btn btn-prmiary">New Impl</button>
+<button type="button" (click)="_impl = 'old'" class="btn btn-prmiary">Old Impl</button>
+<div>impl: {{_impl}}</div>
+<button type="button" (click)="testSpeed()" class="btn btn-prmiary">Test</button>
+
+<ng-container *ngIf="_show && _impl === 'new'">
+  <ng-container *ngFor="let oc of optionsControl">
+
+    <form [formGroup]="oc" style="display: flex;">
+      <div>{{$any(oc.value).Type}}:</div>
+      <ng-container *ngIf="test(oc.value.OptionText)">
+        <!-- <app-sentence [matrix]="[]" [text]="oc.value.OptionText" class="m-1">
+        </app-sentence> -->
+      </ng-container>
+      <ng-container *ngIf="!test(oc.value.OptionText)">
+        {{oc.value.OptionText}}
+        <input type="text" formControlName="OptionCode" class="m-1">
+      </ng-container>
+    </form>
+
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="_show && _impl === 'old'">
+    <ng-container *ngFor="let oc of optionsControl">
+
+      <form [formGroup]="oc" style="display: flex;">
+        <div>{{$any(oc.value).Type}}:</div>
+        <ng-container>
+          <app-sentence [matrix]="[]" [text]="oc.value.OptionText" class="m-1">
+          </app-sentence>
+        </ng-container>
+      </form>
+
+    </ng-container>
+  </ng-container>
