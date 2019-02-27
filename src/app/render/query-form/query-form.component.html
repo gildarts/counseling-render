@@ -6,7 +6,7 @@
     <ng-container *ngIf="_isSingleTextAreaOption(); else normalContent">
       <ng-container *ngFor="let question of _getQuestionsControl()">
         <ng-container [formGroup]="question">
-          <ng-container formArrayName="Options">
+          <ng-container formArrayName="Option">
             <ng-container *ngFor="let option of _getOptionsControl(question)">
               <!-- textarea -->
               <ng-container *ngIf="question.value.Type === '填答'"
@@ -42,7 +42,7 @@
         </div>
 
         <ng-container [formGroup]="question" appRadioGroup>
-          <ng-container formArrayName="Options">
+          <ng-container formArrayName="Option">
 
             <div *ngFor="let option of _getOptionsControl(question)">
               <ng-container [formGroup]="option">

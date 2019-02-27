@@ -20,7 +20,7 @@ export interface QQuestion {
   Require: boolean;
   RequireLink: string;
   Text: string;
-  Options: QOption[];
+  Option: QOption[];
 }
 
 export interface QOption {

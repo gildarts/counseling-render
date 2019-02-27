@@ -32,7 +32,7 @@ export class LargeAmountComponent implements OnInit {
       for (const group of subject.QuestionGroup) {
         for (const query of group.QuestionQuery) {
           for (const quest of query.QuestionText) {
-            quest.Options.forEach(o => {
+            quest.Option.forEach(o => {
               (o as any).Type = quest.Type;
               o.AnswerMatrix = [];
               this.options.push(o);

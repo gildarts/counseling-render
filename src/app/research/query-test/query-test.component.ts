@@ -33,7 +33,7 @@ export class QueryTestComponent implements OnInit {
         for (const query of group.QuestionQuery) {
           this.fulldataGroup.push(new FormControl(query.QuestionText));
           this._count += query.QuestionText
-            .map(v => v.Options.length)
+            .map(v => v.Option.length)
             .reduce((p, c) => p + c);
         }
       }

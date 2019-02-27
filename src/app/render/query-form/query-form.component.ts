@@ -69,10 +69,10 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
     if (!this.dataSource) { return false; }
 
     if (this.dataSource.length > 1) { return false; }
-    if (this.dataSource[0].Options.length > 1) { return false; }
+    if (this.dataSource[0].Option.length > 1) { return false; }
     if (this.dataSource[0].Text) { return false; }
 
-    const sentence = this.dissector.create(this.dataSource[0].Options[0].OptionText);
+    const sentence = this.dissector.create(this.dataSource[0].Option[0].OptionText);
 
     return sentence.containsTextArea;
   }
@@ -86,7 +86,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   _getOptionsControl(q: FormGroup) {
     this._option_call_count++;
 
-    const ctl = q.get("Options") as FormArray;
+    const ctl = q.get("Option") as FormArray;
     return (ctl || { controls: [] }).controls;
   }
 
@@ -125,7 +125,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
     if (!data) { data = []; }
 
     const questionArray = data.map(quest => {
-      const optionArray = quest.Options.map(opt => {
+      const optionArray = quest.Option.map(opt => {
         return this.fb.group({
           ...opt,
           "AnswerMatrix": new FormControl(opt.AnswerMatrix),
@@ -133,7 +133,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
       });
       return this.fb.group({
         ...quest,
-        "Options": new FormArray(optionArray)
+        "Option": new FormArray(optionArray)
       });
     });
     this._questionGroup.setControl("questions", new FormArray(questionArray));
@@ -162,7 +162,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   _applyOptionsState() {
     const optionHierarchy = this.dataSource
       .filter(v => v.Type === "單選" || v.Type === "複選")
-      .map(v => v.Options);
+      .map(v => v.Option);
 
       // TODO: 之後需要考慮如果此 component 消滅時是否需要清除相關資料。
     this.coorniator.setStates(flatten(optionHierarchy));
