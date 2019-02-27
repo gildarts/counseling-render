@@ -1,3 +1,4 @@
+<!-- {{_call_count}} -->
 <form [formGroup]="_tokenGroup" class="flex_layout">
   <!-- (r:{{_required}})(v:{{_tokenGroup.valid}}) -->
   <ng-container *ngFor="let token of _getTokenControls(); let i=index">
@@ -15,12 +16,16 @@
         <input *ngIf="token.value.size >= 0"
                type="text"
                formControlName="value" (blur)="_touched()"
-               [ngStyle]="_getControlStyle(token.value)">
+               [ngStyle]="_getControlStyle(token.value)"
+               class="sentence-input"
+               >
 
         <textarea *ngIf="token.value.size < 0"
                   rows="6"
                   formControlName="value" (blur)="_touched()"
-                  [ngStyle]="_getControlStyle(token.value)"></textarea>
+                  [ngStyle]="_getControlStyle(token.value)"
+                  class="sentence-textarea"
+                  ></textarea>
 
       </ng-container>
 
