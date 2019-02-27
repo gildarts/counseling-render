@@ -37,7 +37,12 @@ export class QueryFormDemoComponent implements OnInit {
 
   @ViewChildren('query') query: QueryList<QueryFormComponent>;
 
+  _new_value = {};
+
   ngOnInit() {
+    this.dataControl[0].valueChanges.subscribe(v => {
+      this._new_value = v;
+    });
   }
 
   toggleDisabled() {
