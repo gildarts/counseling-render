@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, EventEmitter, Output, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { SentenceService } from '../dissector.service';
 import { TokenData, SentenceDissector } from '../sentence-dissector';
 import { FormBuilder, FormArray, Validators, } from '@angular/forms';
@@ -24,7 +24,8 @@ example:
 @Component({
   selector: 'app-sentence',
   templateUrl: './sentence.component.html',
-  styleUrls: ['./sentence.component.css']
+  styleUrls: ['./sentence.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -41,6 +42,8 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
   private _dissector: SentenceDissector;
   private _ui_dirty = false; // 代表畫面需要更新。
   // private _tokens: TokenData[] = [];
+
+  _call_count = 0;
 
   constructor(
     private srv: SentenceService, // 用於解析 text 用的服務。
@@ -127,6 +130,7 @@ export class SentenceComponent implements OnInit, OnDestroy, OnChanges {
    * 取得 matrix 裡面每一元素所代表的相關資訊。
    */
   _getTokenControls() {
+    this._call_count++;
     const arr = this._tokenGroup.get("inputs") as FormArray;
     return (arr || { controls: [] }).controls;
   }

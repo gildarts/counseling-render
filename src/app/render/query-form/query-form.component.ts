@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Question, Option } from './model';
 import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -12,7 +12,8 @@ import { SentenceService } from '../dissector.service';
   selector: '[app-query-form]',
   templateUrl: './query-form.component.html',
   styleUrls: ['./query-form.component.css'],
-  exportAs: 'appQueryForm'
+  exportAs: 'appQueryForm',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
@@ -24,10 +25,14 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
 
   _required = true;
 
+  _question_call_count = 0;
+  _option_call_count = 0;
+
   constructor(
     private fb: FormBuilder,
     private coorniator: OptionCheckCoordinatorService,
-    private dissector: SentenceService
+    private dissector: SentenceService,
+    private change: ChangeDetectorRef
   ) { }
 
   @Input() dataSource: Question[];
@@ -55,6 +60,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   /** 將所有值還原到剛開始「未修改(不一定是空值)」的狀態。 */
   public resetValues() {
     this._initQuestionGroup(true);
+    this.change.markForCheck();
   }
 
   /** 是否為單題目單選項的 TextArea Query。 */
@@ -72,11 +78,14 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   _getQuestionsControl() {
+    this._question_call_count++;
     const ctl = this._questionGroup.get("questions") as FormArray;
     return (ctl || { controls: [] }).controls as FormGroup[];
   }
 
   _getOptionsControl(q: FormGroup) {
+    this._option_call_count++;
+
     const ctl = q.get("Options") as FormArray;
     return (ctl || { controls: [] }).controls;
   }
@@ -100,6 +109,7 @@ export class QueryFormComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       this._questionGroup.enable({ emitEvent: false });
     }
+    this.change.markForCheck();
   }
 
   /** 依 dataSource 最新狀態產生畫面。 */

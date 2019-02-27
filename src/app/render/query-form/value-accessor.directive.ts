@@ -14,7 +14,7 @@ export const QUERY_FORM_VALUE_ACCESSOR: any = {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[app-query-form][ngModel],[app-query-form][formControl],[app-query-form][formControlName]',
-  providers: [QUERY_FORM_VALUE_ACCESSOR]
+  providers: [QUERY_FORM_VALUE_ACCESSOR],
 })
 export class QueryFormValueAccessorDirective implements OnInit, OnDestroy, ControlValueAccessor {
 
